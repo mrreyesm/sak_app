@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Welcome/components/background.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -13,9 +14,20 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              "WELCOME TO YOUR SAK",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            AnimatedTextKit(
+              animatedTexts: [
+                TyperAnimatedText(
+                  'Welcome to the SAK App!',
+                  textStyle: const TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(240, 231, 125, 13)),
+                ),
+              ],
+              totalRepeatCount: 4,
+              pause: const Duration(milliseconds: 500),
+              displayFullTextOnTap: true,
+              stopPauseOnTap: true,
             ),
             SizedBox(height: size.height * 0.05),
             Image.asset(
@@ -25,11 +37,11 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.05),
             TextButton(
-              onPressed: () {}, 
+              onPressed: () {},
               child: const Text('LOGIN'),
             ),
             TextButton(
-              onPressed: () {}, 
+              onPressed: () {},
               child: const Text('SIGN UP'),
             ),
           ],
