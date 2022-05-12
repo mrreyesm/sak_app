@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sak_app/Screens/Welcome/welcome_screen.dart';
-import 'package:sak_app/constants.dart';
+import 'constants.dart';
+import 'Screens/Welcome/welcome_screen.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Sak App',
+      title: 'SAK App',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,

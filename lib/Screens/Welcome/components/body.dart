@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sak_app/Screens/Login/login_screen.dart';
-import 'package:sak_app/Screens/Signup/signup_screen.dart';
 import 'package:sak_app/Screens/Welcome/components/background.dart';
-import 'package:sak_app/components/rounded_button.dart';
-import 'package:sak_app/constants.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -20,42 +14,23 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              "WELCOME TO EDU",
+              "WELCOME TO YOUR SAK",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.05),
-            SvgPicture.asset(
-              "assets/icons/chat.svg",
-              height: size.height * 0.45,
+            Image.asset(
+              "assets/images/main_logo.png",
+              height: size.height * 0.4,
+              width: size.width * 0.4,
             ),
             SizedBox(height: size.height * 0.05),
-            RoundedButton(
-              text: "LOGIN",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const LoginScreen();
-                    },
-                  ),
-                );
-              },
+            TextButton(
+              onPressed: () {}, 
+              child: const Text('LOGIN'),
             ),
-            RoundedButton(
-              text: "SIGN UP",
-              color: kPrimaryLightColor,
-              textColor: Colors.black,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const SignUpScreen();
-                    },
-                  ),
-                );
-              },
+            TextButton(
+              onPressed: () {}, 
+              child: const Text('SIGN UP'),
             ),
           ],
         ),
