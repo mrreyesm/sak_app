@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
                 TyperAnimatedText(
                   'Welcome to the SAK App!',
                   textStyle: const TextStyle(
-                      fontSize: 32.0,
+                      fontSize: 28.0,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(240, 231, 125, 13)),
                 ),
