@@ -20,8 +20,6 @@ class Body extends StatelessWidget {
                 ScaleAnimatedText(
                   'WELCOME',
                   textStyle: const TextStyle(
-                      fontFamily: 'Canterbury',
-                      fontSize: 26.0,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(239, 222, 125, 20)),
                 ),
