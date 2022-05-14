@@ -20,6 +20,8 @@ class Body extends StatelessWidget {
                 ScaleAnimatedText(
                   'WELCOME',
                   textStyle: const TextStyle(
+                      fontFamily: 'Canterbury',
+                      fontSize: 26.0,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(239, 222, 125, 20)),
                 ),
@@ -38,6 +40,7 @@ class Body extends StatelessWidget {
                       fontSize: 26.0,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(239, 222, 125, 20)),
+                  duration: const Duration(milliseconds: 5000),
                 ),
               ],
               totalRepeatCount: 1,

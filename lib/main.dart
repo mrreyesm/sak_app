@@ -26,26 +26,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class Splash2 extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SplashScreen(
-//       seconds: 6,
-//       navigateAfterSeconds: new WelcomeScreen(),
-//       title: const Text(
-//         'DSAK',
-//         textScaleFactor: 2,
-//       ),
-//       image: Image.asset(
-//         "assets/images/main_logo.png",
-//       ),
-//       loadingText: Text("Loading"),
-//       photoSize: 100.0,
-//       loaderColor: Colors.blue,
-//     );
-//   }
-// }
-
 class Splash2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
