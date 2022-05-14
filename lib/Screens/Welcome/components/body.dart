@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Welcome/components/background.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -16,15 +17,32 @@ class Body extends StatelessWidget {
           children: <Widget>[
             AnimatedTextKit(
               animatedTexts: [
-                TyperAnimatedText(
-                  'Welcome to the SAK App!',
+                ScaleAnimatedText(
+                  'WELCOME',
                   textStyle: const TextStyle(
-                      fontSize: 32.0,
+                      fontFamily: 'Canterbury',
+                      fontSize: 26.0,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(240, 231, 125, 13)),
+                      color: Color.fromARGB(239, 222, 125, 20)),
+                ),
+                ScaleAnimatedText(
+                  'TO YOUR',
+                  textStyle: const TextStyle(
+                      fontFamily: 'Canterbury',
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(239, 222, 125, 20)),
+                ),
+                ScaleAnimatedText(
+                  'SAK APP!',
+                  textStyle: const TextStyle(
+                      fontFamily: 'Canterbury',
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(239, 222, 125, 20)),
                 ),
               ],
-              totalRepeatCount: 4,
+              totalRepeatCount: 1,
               pause: const Duration(milliseconds: 500),
               displayFullTextOnTap: true,
               stopPauseOnTap: true,
@@ -35,8 +53,11 @@ class Body extends StatelessWidget {
               height: size.height * 0.4,
               width: size.width * 0.4,
             ),
-            SizedBox(height: size.height * 0.05),
-            TextButton(
+            const SizedBox(
+              height: 30,
+              width: 70,
+            ),
+            ElevatedButton(
               onPressed: () {},
               child: const Text('LOGIN'),
             ),
