@@ -40,3 +40,4 @@ class Splash2 extends StatelessWidget {
             backgroundColor: Color.fromARGB(255, 125, 184, 232)));
   }
 }
+//------------------------------------test gibran
