@@ -30,6 +30,7 @@ class Splash2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'DSAK',
         home: AnimatedSplashScreen(
             duration: 10000,
@@ -40,4 +41,3 @@ class Splash2 extends StatelessWidget {
             backgroundColor: Color.fromARGB(255, 125, 184, 232)));
   }
 }
-//------------------------------------test gibran
