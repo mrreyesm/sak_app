@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Signup/components/background.dart';
-
+import 'package:sak_app/constants.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -13,11 +13,138 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              "SIGNUP",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            SizedBox(height: size.height * 0.15),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  Username*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
             ),
-            SizedBox(height: size.height * 0.03),
+            SizedBox(height: size.height * 0.02),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  First Name*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  Last Name*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  Employee ID*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  Contact No.*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  Password*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "  Confirm Password*",
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            CheckboxListTile(value: true , onChanged: (value){},
+              title: Text("I agree to the terms and conditions"),
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: kPrimaryColor,
+            ),
+            SizedBox(height: size.height * 0.07),
+            Divider(
+              thickness: 0.5,
+              indent: size.width * 0.05,
+              endIndent: size.width * 0.05,
+              color: Colors.black,
+            ),
+            Container(
+              width: size.width * 0.7,
+              child: FlatButton(
+                onPressed: () {},
+                color: kPrimaryColor,
+                child: Text(
+                  "SIGN UP",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
           ],
         ),
       ),

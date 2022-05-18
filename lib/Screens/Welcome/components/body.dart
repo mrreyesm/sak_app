@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sak_app/Screens/Login/login_screen.dart';
+import 'package:sak_app/Screens/Signup/signup_screen.dart';
 import 'package:sak_app/Screens/Welcome/components/background.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -59,11 +61,21 @@ class Body extends StatelessWidget {
               width: 70,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                      return LoginScreen();
+                    }));
+              },
               child: const Text('LOGIN'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                      return SignUpScreen();
+                    }));
+              },
               child: const Text('SIGN UP'),
             ),
           ],
