@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Login/components/background.dart';
+import 'package:sak_app/Screens/Sensor%20Menu/sensorMenu.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -37,11 +38,21 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             ElevatedButton(
               style: ElevatedButton.styleFrom(fixedSize: const Size(350, 40)),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SensorScreen()));
+              },
               child: const Text('LOGIN'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SensorScreen()));
+              },
               child: const Text('Forgot Password'),
             ),
           ],

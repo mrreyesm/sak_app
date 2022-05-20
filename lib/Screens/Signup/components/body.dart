@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sak_app/Screens/Sensor%20Menu/sensorMenu.dart';
 import 'package:sak_app/Screens/Signup/components/background.dart';
 import 'package:sak_app/constants.dart';
 
@@ -118,7 +119,9 @@ class Body extends StatelessWidget {
                 ),
               ),
             ),
-            CheckboxListTile(value: true , onChanged: (value){},
+            CheckboxListTile(
+              value: true,
+              onChanged: (value) {},
               title: Text("I agree to the terms and conditions"),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: kPrimaryColor,
@@ -133,7 +136,12 @@ class Body extends StatelessWidget {
             Container(
               width: size.width * 0.7,
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SensorScreen()));
+                },
                 color: kPrimaryColor,
                 child: Text(
                   "SIGN UP",
