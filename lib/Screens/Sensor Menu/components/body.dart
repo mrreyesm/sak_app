@@ -17,35 +17,30 @@ class Body extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
           padding: const EdgeInsets.all(8),
-          // color: Colors.teal[100],
           child: const Text("Placeholder 1"),
         ),
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
           padding: const EdgeInsets.all(8),
-          // color: Colors.teal[200],
           child: const Text("Placeholder 2"),
         ),
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
           padding: const EdgeInsets.all(8),
-          // color: Colors.teal[300],
           child: const Text("Placeholder 3"),
         ),
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
           padding: const EdgeInsets.all(8),
-          // color: Colors.teal[400],
           child: const Text("Placeholder 4"),
         ),
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
           padding: const EdgeInsets.all(8),
-          // color: Colors.teal[500],
           child: const Text("Placeholder 5"),
         ),
         Container(
@@ -55,8 +50,6 @@ class Body extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
           padding: const EdgeInsets.all(8),
-          // color: Colors.teal[600],
-          // child: const Text("Placeholder 6"),
         ),
       ],
     );
