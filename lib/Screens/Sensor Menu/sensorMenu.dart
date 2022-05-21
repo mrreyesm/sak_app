@@ -6,7 +6,12 @@ class SensorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Menu"),
+        backgroundColor: Colors.black,
+      ),
+      drawer: Drawer(),
       body: Body(),
     );
   }
