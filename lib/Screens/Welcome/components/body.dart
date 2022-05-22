@@ -17,39 +17,6 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // AnimatedTextKit(
-            //   animatedTexts: [
-            //     ScaleAnimatedText(
-            //       'WELCOME',
-            //       textStyle: const TextStyle(
-            //           fontFamily: 'Canterbury',
-            //           fontSize: 26.0,
-            //           fontWeight: FontWeight.bold,
-            //           color: Color.fromARGB(239, 222, 125, 20)),
-            //     ),
-            //     ScaleAnimatedText(
-            //       'TO YOUR',
-            //       textStyle: const TextStyle(
-            //           fontFamily: 'Canterbury',
-            //           fontSize: 26.0,
-            //           fontWeight: FontWeight.bold,
-            //           color: Color.fromARGB(239, 222, 125, 20)),
-            //     ),
-            //     ScaleAnimatedText(
-            //       'SAK APP!',
-            //       textStyle: const TextStyle(
-            //           fontFamily: 'Canterbury',
-            //           fontSize: 26.0,
-            //           fontWeight: FontWeight.bold,
-            //           color: Color.fromARGB(239, 222, 125, 20)),
-            //       duration: const Duration(milliseconds: 5000),
-            //     ),
-            //   ],
-            //   totalRepeatCount: 1,
-            //   pause: const Duration(milliseconds: 500),
-            //   displayFullTextOnTap: true,
-            //   stopPauseOnTap: true,
-            // ),
             SizedBox(height: size.height * 0.05),
             Image.asset(
               "assets/images/main_logo.png",
@@ -61,6 +28,10 @@ class Body extends StatelessWidget {
               width: 70,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(350, 40),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24))),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return LoginScreen();
@@ -69,6 +40,7 @@ class Body extends StatelessWidget {
               child: const Text('LOGIN'),
             ),
             TextButton(
+              style: TextButton.styleFrom(fixedSize: const Size(350, 40)),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return SignUpScreen();
