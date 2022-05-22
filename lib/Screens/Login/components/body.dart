@@ -37,7 +37,10 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(fixedSize: const Size(350, 40)),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(350, 40),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24))),
               onPressed: () {
                 Navigator.push(
                     context,
