@@ -122,9 +122,9 @@ class Body extends StatelessWidget {
             CheckboxListTile(
               value: true,
               onChanged: (value) {},
-              title: Text("I agree to the terms and conditions"),
+              title: Text("Terms and Conditions"),
               controlAffinity: ListTileControlAffinity.leading,
-              activeColor: kPrimaryColor,
+              activeColor: Colors.grey,
             ),
             SizedBox(height: size.height * 0.07),
             Divider(

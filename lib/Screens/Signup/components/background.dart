@@ -17,29 +17,30 @@ class Background extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Image.asset(
-              "assets/images/signup_top.png",
-              width: size.width * 0.35,
-            ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   child: Image.asset(
+          //     "assets/images/signup_top.png",
+          //     width: size.width * 0.35,
+          //   ),
+          // ),
           Positioned(
             top: 50,
+            right: 10,
             child: Image.asset(
               "assets/images/main_logo.png",
               width: size.width * 0.25,
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Image.asset(
-              "assets/images/main_bottom.png",
-              width: size.width * 0.25,
-            ),
-          ),
+          // Positioned(
+          //   bottom: 0,
+          //   left: 0,
+          //   child: Image.asset(
+          //     "assets/images/main_bottom.png",
+          //     width: size.width * 0.25,
+          //   ),
+          // ),
           child,
         ],
       ),
