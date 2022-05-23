@@ -27,26 +27,77 @@ class Body extends StatelessWidget {
               height: 30,
               width: 70,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(350, 40),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24))),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LoginScreen();
-                }));
-              },
-              child: const Text('LOGIN'),
+            Container(
+              child: TextButton(
+                child: InkWell(
+                  child: Ink(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Picture9.png"),
+                      ),
+                    ),
+                    child: Container(
+                      height: 250,
+                      width: 120,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'varelaround'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                },
+              ),
             ),
-            TextButton(
-              style: TextButton.styleFrom(fixedSize: const Size(350, 40)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SignUpScreen();
-                }));
-              },
-              child: const Text('SIGN UP'),
+            Container(
+              child: TextButton(
+                child: InkWell(
+                  child: Ink(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Picture9.png"),
+                      ),
+                    ),
+                    child: Container(
+                      height: 250,
+                      width: 50,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "SIGN UP",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'varelaround'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpScreen()));
+                },
+              ),
             ),
           ],
         ),
