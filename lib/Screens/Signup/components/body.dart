@@ -134,22 +134,39 @@ class Body extends StatelessWidget {
               color: Colors.black,
             ),
             Container(
-              width: size.width * 0.7,
-              child: FlatButton(
+              child: TextButton(
+                child: InkWell(
+                  child: Ink(
+                    width: 510,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Picture9.png"),
+                      ),
+                    ),
+                    child: Container(
+                      height: 510,
+                      width: 70,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "SIGN UP",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'varelaround'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const SensorScreen()));
                 },
-                color: kPrimaryColor,
-                child: Text(
-                  "SIGN UP",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
             ),
             SizedBox(height: size.height * 0.02),

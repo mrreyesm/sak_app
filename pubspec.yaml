@@ -83,3 +83,6 @@ flutter:
         - asset: assets\fonts\Canterbury.ttf
         - asset: assets\fonts\Canterbury.ttf
           style: italic
+    - family: varelaround
+      fonts:
+        - asset: assets\fonts\varelaround.ttf
