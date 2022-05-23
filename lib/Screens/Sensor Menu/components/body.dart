@@ -20,11 +20,17 @@ class Body extends StatelessWidget {
             child: new GridTile(
                 child: new Image.asset(
               "assets/icons/gyro.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             )),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            )
+          ], borderRadius: BorderRadius.circular(10), color: Colors.white),
           padding: const EdgeInsets.all(8),
         ),
         Container(
@@ -33,11 +39,17 @@ class Body extends StatelessWidget {
             child: new GridTile(
                 child: new Image.asset(
               "assets/icons/barcode.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             )),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            )
+          ], borderRadius: BorderRadius.circular(10), color: Colors.white),
           padding: const EdgeInsets.all(8),
         ),
         Container(
@@ -46,11 +58,17 @@ class Body extends StatelessWidget {
             child: new GridTile(
                 child: new Image.asset(
               "assets/icons/accl.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             )),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            )
+          ], borderRadius: BorderRadius.circular(10), color: Colors.white),
           padding: const EdgeInsets.all(8),
         ),
         Container(
@@ -59,11 +77,17 @@ class Body extends StatelessWidget {
             child: new GridTile(
                 child: new Image.asset(
               "assets/icons/export.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             )),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            )
+          ], borderRadius: BorderRadius.circular(10), color: Colors.white),
           padding: const EdgeInsets.all(8),
         ),
         Container(
@@ -72,11 +96,17 @@ class Body extends StatelessWidget {
             child: new GridTile(
                 child: new Image.asset(
               "assets/icons/mqtt.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             )),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            )
+          ], borderRadius: BorderRadius.circular(10), color: Colors.white),
           padding: const EdgeInsets.all(8),
         ),
         Container(
@@ -85,11 +115,17 @@ class Body extends StatelessWidget {
             child: new GridTile(
                 child: new Image.asset(
               "assets/icons/sets.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             )),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.teal[50]),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            )
+          ], borderRadius: BorderRadius.circular(10), color: Colors.white),
           padding: const EdgeInsets.all(8),
         ),
       ],
