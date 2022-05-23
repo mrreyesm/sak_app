@@ -26,6 +26,14 @@ class Background extends StatelessWidget {
               fit: BoxFit.fitHeight,
             ),
           ),
+          Positioned(
+            top: 50,
+            right: 10,
+            child: Image.asset(
+              "assets/images/main_logo.png",
+              width: size.width * 0.25,
+            ),
+          ),
           child,
         ],
       ),
