@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sak_app/Screens/Gyroscope/gyroscopePage.dart';
+import 'package:sak_app/Screens/Login/login_screen.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/components/background.dart';
 
 class Body extends StatelessWidget {
@@ -17,7 +19,12 @@ class Body extends StatelessWidget {
         children: <Widget>[
           Container(
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GyroScreen()));
+              },
               child: new GridTile(
                   child: new Image.asset(
                 "assets/icons/gyro.png",
