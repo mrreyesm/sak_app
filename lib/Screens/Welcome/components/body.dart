@@ -17,39 +17,6 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // AnimatedTextKit(
-            //   animatedTexts: [
-            //     ScaleAnimatedText(
-            //       'WELCOME',
-            //       textStyle: const TextStyle(
-            //           fontFamily: 'Canterbury',
-            //           fontSize: 26.0,
-            //           fontWeight: FontWeight.bold,
-            //           color: Color.fromARGB(239, 222, 125, 20)),
-            //     ),
-            //     ScaleAnimatedText(
-            //       'TO YOUR',
-            //       textStyle: const TextStyle(
-            //           fontFamily: 'Canterbury',
-            //           fontSize: 26.0,
-            //           fontWeight: FontWeight.bold,
-            //           color: Color.fromARGB(239, 222, 125, 20)),
-            //     ),
-            //     ScaleAnimatedText(
-            //       'SAK APP!',
-            //       textStyle: const TextStyle(
-            //           fontFamily: 'Canterbury',
-            //           fontSize: 26.0,
-            //           fontWeight: FontWeight.bold,
-            //           color: Color.fromARGB(239, 222, 125, 20)),
-            //       duration: const Duration(milliseconds: 5000),
-            //     ),
-            //   ],
-            //   totalRepeatCount: 1,
-            //   pause: const Duration(milliseconds: 500),
-            //   displayFullTextOnTap: true,
-            //   stopPauseOnTap: true,
-            // ),
             SizedBox(height: size.height * 0.05),
             Image.asset(
               "assets/images/main_logo.png",
@@ -60,21 +27,77 @@ class Body extends StatelessWidget {
               height: 30,
               width: 70,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LoginScreen();
-                }));
-              },
-              child: const Text('LOGIN'),
+            Container(
+              child: TextButton(
+                child: InkWell(
+                  child: Ink(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Picture9.png"),
+                      ),
+                    ),
+                    child: Container(
+                      height: 250,
+                      width: 120,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'varelaround'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                },
+              ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SignUpScreen();
-                }));
-              },
-              child: const Text('SIGN UP'),
+            Container(
+              child: TextButton(
+                child: InkWell(
+                  child: Ink(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Picture9.png"),
+                      ),
+                    ),
+                    child: Container(
+                      height: 250,
+                      width: 50,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "SIGN UP",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'varelaround'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpScreen()));
+                },
+              ),
             ),
           ],
         ),

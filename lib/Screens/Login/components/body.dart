@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Login/components/background.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/sensorMenu.dart';
@@ -22,7 +24,7 @@ class Body extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                hintText: "Username",
+                hintText: "Username or Email",
               ),
             ),
             SizedBox(height: size.height * 0.03),
@@ -36,15 +38,41 @@ class Body extends StatelessWidget {
               ),
             ),
             SizedBox(height: size.height * 0.03),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(fixedSize: const Size(350, 40)),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SensorScreen()));
-              },
-              child: const Text('LOGIN'),
+            Container(
+              child: TextButton(
+                child: InkWell(
+                  child: Ink(
+                    width: 510,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/Picture9.png"),
+                      ),
+                    ),
+                    child: Container(
+                      height: 510,
+                      width: 70,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'varelaround'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SensorScreen()));
+                },
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -53,7 +81,13 @@ class Body extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const SensorScreen()));
               },
-              child: const Text('Forgot Password'),
+              child: const Text(
+                'FORGOT PASSWORD?',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'varelaround',
+                    fontSize: 15),
+              ),
             ),
           ],
         ),
