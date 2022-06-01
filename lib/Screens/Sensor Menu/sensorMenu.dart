@@ -11,7 +11,9 @@ class SensorScreen extends StatelessWidget {
         title: Text("Menu"),
         backgroundColor: Colors.black,
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: Placeholder(),
+      ),
       body: Body(),
     );
   }
