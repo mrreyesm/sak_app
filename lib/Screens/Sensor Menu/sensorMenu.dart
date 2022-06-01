@@ -36,6 +36,30 @@ class SensorScreen extends StatelessWidget {
                         builder: (context) => const LoginScreen()));
               },
             ),
+            ListTile(
+              title: Text("Gyroscope"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("Accelerometer"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("FAQ"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("Help"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
