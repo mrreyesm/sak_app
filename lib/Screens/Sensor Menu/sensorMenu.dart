@@ -22,42 +22,48 @@ class SensorScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("Sensor Menu"),
+              title: const Text("Sensor Menu"),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text("Logout"),
+              title: const Text("Gyroscope"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("Accelerometer"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("FAQ"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("Help"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("Settings"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("Logout"),
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const LoginScreen()));
-              },
-            ),
-            ListTile(
-              title: Text("Gyroscope"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text("Accelerometer"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text("FAQ"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text("Help"),
-              onTap: () {
-                Navigator.pop(context);
               },
             ),
           ],
