@@ -10,7 +10,7 @@ class SensorScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Menu"),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.indigo[900],
       ),
       drawer: Drawer(
         child: ListView(
@@ -18,7 +18,7 @@ class SensorScreen extends StatelessWidget {
             DrawerHeader(
               child: Text("Menu"),
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Colors.teal[100],
               ),
             ),
             ListTile(
@@ -31,9 +31,9 @@ class SensorScreen extends StatelessWidget {
               title: Text("Logout"),
               onTap: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
               },
             ),
           ],
