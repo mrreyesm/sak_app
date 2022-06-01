@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sak_app/Screens/Login/login_screen.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/components/body.dart';
 
 class SensorScreen extends StatelessWidget {
@@ -11,7 +12,33 @@ class SensorScreen extends StatelessWidget {
         title: Text("Menu"),
         backgroundColor: Colors.black,
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text("Menu"),
+              decoration: BoxDecoration(
+                color: Colors.black,
+              ),
+            ),
+            ListTile(
+              title: Text("Sensor Menu"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("Logout"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen()));
+              },
+            ),
+          ],
+        ),
+      ),
       body: Body(),
     );
   }
