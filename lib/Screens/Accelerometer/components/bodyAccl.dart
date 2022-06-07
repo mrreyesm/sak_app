@@ -3,23 +3,24 @@ import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'dart:core';
 
-class SensorData extends StatefulWidget {
-  const SensorData({Key? key}) : super(key: key);
+class AccelerometerData extends StatefulWidget {
+  const AccelerometerData({Key? key}) : super(key: key);
 
   @override
-  State<SensorData> createState() => _SensorDataState();
+  State<AccelerometerData> createState() => _AccelerometerDataState();
 }
 
-class _SensorDataState extends State<SensorData> {
-  List<double>? _gyroscopeValues;
+class _AccelerometerDataState extends State<AccelerometerData> {
+  List<double>? _accelerometerValues;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final gyroscope =
-        _gyroscopeValues?.map((double v) => v.toStringAsFixed(3)).toList();
+    final accelerometer =
+        _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
 
     return Background(
       child: Column(
@@ -30,7 +31,7 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}",
+                    "X Axis: ${accelerometer![0]}\nY Axis: ${accelerometer[1]}\nZ Axis: ${accelerometer[2]}",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -76,10 +77,10 @@ class _SensorDataState extends State<SensorData> {
   void initState() {
     super.initState();
     _streamSubscriptions.add(
-      gyroscopeEvents.listen(
-        (GyroscopeEvent event) {
+      accelerometerEvents.listen(
+        (AccelerometerEvent event) {
           setState(() {
-            _gyroscopeValues = <double>[event.x, event.y, event.z];
+            _accelerometerValues = <double>[event.x, event.y, event.z];
           });
         },
       ),
