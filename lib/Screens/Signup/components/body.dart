@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/sensorMenu.dart';
 import 'package:sak_app/Screens/Signup/components/background.dart';
 import 'package:sak_app/constants.dart';
+import 'package:sak_app/db/sak_database.dart';
+import 'package:sak_app/model/sak.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final idController = TextEditingController();
+    final userNameController = TextEditingController();
+    final firstNameController = TextEditingController();
+    final lastNameController = TextEditingController();
+    final phoneNumberController = TextEditingController();
+    final employeeIdController = TextEditingController();
+    final passwordController = TextEditingController();
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
@@ -16,6 +25,7 @@ class Body extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: size.height * 0.15),
             TextField(
+              controller: userNameController,
               decoration: InputDecoration(
                 hintText: "  Username*",
                 hintStyle: TextStyle(color: Colors.black),
@@ -31,6 +41,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.02),
             TextField(
+              controller: firstNameController,
               decoration: InputDecoration(
                 hintText: "  First Name*",
                 hintStyle: TextStyle(color: Colors.black),
@@ -46,6 +57,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.02),
             TextField(
+              controller: lastNameController,
               decoration: InputDecoration(
                 hintText: "  Last Name*",
                 hintStyle: TextStyle(color: Colors.black),
@@ -61,6 +73,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.02),
             TextField(
+              controller: employeeIdController,
               decoration: InputDecoration(
                 hintText: "  Employee ID*",
                 hintStyle: TextStyle(color: Colors.black),
@@ -76,6 +89,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.02),
             TextField(
+              controller: phoneNumberController,
               decoration: InputDecoration(
                 hintText: "  Contact No.*",
                 hintStyle: TextStyle(color: Colors.black),
@@ -91,6 +105,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.02),
             TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 hintText: "  Password*",
                 hintStyle: TextStyle(color: Colors.black),
@@ -161,7 +176,17 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  final user = User(
+                    userName: userNameController.text,
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                    phoneNumber: phoneNumberController.text,
+                    employeeId: employeeIdController.text,
+                    password: passwordController.text,
+                    );
+                    
+                  await SakDatabase.instance.create(user);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
