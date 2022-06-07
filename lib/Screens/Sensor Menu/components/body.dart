@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sak_app/Screens/Accelerometer/accelerometerPage.dart';
 import 'package:sak_app/Screens/Gyroscope/gyroscopePage.dart';
 import 'package:sak_app/Screens/Login/login_screen.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/components/background.dart';
@@ -44,10 +45,12 @@ class Body extends StatelessWidget {
           ),
           Container(
             child: InkWell(
-              onTap: () {Navigator.push(
+              onTap: () {
+                Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BarcodeScannerScreen()));},
+                        builder: (context) => const BarcodeScannerScreen()));
+              },
               child: new GridTile(
                   child: new Image.asset(
                 "assets/icons/barcode.png",
@@ -66,7 +69,12 @@ class Body extends StatelessWidget {
           ),
           Container(
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AcclScreen()));
+              },
               child: new GridTile(
                   child: new Image.asset(
                 "assets/icons/accl.png",
