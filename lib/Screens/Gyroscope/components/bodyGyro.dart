@@ -46,8 +46,8 @@ class _SensorDataState extends State<SensorData> {
             children: [
               Expanded(
                 child: Container(
-                  height: size.height * 0.3,
-                  width: size.width * 0.3,
+                  height: size.height * 0.4,
+                  width: size.width * 0.4,
                   child: BarChart(
                     BarChartData(barGroups: [
                       BarChartGroupData(
@@ -88,13 +88,42 @@ class _SensorDataState extends State<SensorData> {
           SizedBox(height: size.height * 0.03),
           Row(
             children: [
-              Placeholder(
-                fallbackWidth: size.width,
-                fallbackHeight: size.height * 0.1,
-                color: Colors.black,
-              )
+              Row(
+                children: <Widget>[
+                  InkWell(
+                    child: Ink(
+                      height: size.height * 0.15,
+                      width: size.width * (1 / 3),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/icons/play.png"))),
+                    ),
+                    onTap: () {},
+                  ),
+                  InkWell(
+                    child: Ink(
+                      height: size.height * 0.15,
+                      width: size.width * (1 / 3),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/icons/pause.png"))),
+                    ),
+                    onTap: () {},
+                  ),
+                  InkWell(
+                    child: Ink(
+                      height: size.height * 0.15,
+                      width: size.width * (1 / 3),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/icons/stop.png"))),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
             ],
-          ),
+          )
         ],
       ),
     );
@@ -110,6 +139,7 @@ class _SensorDataState extends State<SensorData> {
 
   @override
   void initState() {
+    _gyroscopeValues = [1, 1, 1];
     super.initState();
     _streamSubscriptions.add(
       gyroscopeEvents.listen(
