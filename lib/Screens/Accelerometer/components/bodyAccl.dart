@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
+import 'package:sak_app/Screens/Accelerometer/components/backgroundAccl.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -47,8 +47,8 @@ class _AccelerometerDataState extends State<AccelerometerData> {
             children: [
               Expanded(
                 child: Container(
-                  height: size.height * 0.3,
-                  width: size.width * 0.3,
+                  height: size.height * 0.4,
+                  width: size.width * 0.4,
                   child: BarChart(
                     BarChartData(barGroups: [
                       BarChartGroupData(
@@ -89,13 +89,42 @@ class _AccelerometerDataState extends State<AccelerometerData> {
           SizedBox(height: size.height * 0.03),
           Row(
             children: [
-              Placeholder(
-                fallbackWidth: size.width,
-                fallbackHeight: size.height * 0.1,
-                color: Colors.black,
-              )
+              Row(
+                children: <Widget>[
+                  InkWell(
+                    child: Ink(
+                      height: size.height * 0.15,
+                      width: size.width * (1 / 3),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/icons/play.png"))),
+                    ),
+                    onTap: () {},
+                  ),
+                  InkWell(
+                    child: Ink(
+                      height: size.height * 0.15,
+                      width: size.width * (1 / 3),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/icons/pause.png"))),
+                    ),
+                    onTap: () {},
+                  ),
+                  InkWell(
+                    child: Ink(
+                      height: size.height * 0.15,
+                      width: size.width * (1 / 3),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/icons/stop.png"))),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
             ],
-          ),
+          )
         ],
       ),
     );
