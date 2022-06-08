@@ -46,7 +46,43 @@ class _AccelerometerDataState extends State<AccelerometerData> {
           Row(
             children: [
               Expanded(
-                child: Placeholder(),
+                child: Container(
+                  height: size.height * 0.3,
+                  width: size.width * 0.3,
+                  child: BarChart(
+                    BarChartData(barGroups: [
+                      BarChartGroupData(
+                        x: 0,
+                        barRods: [
+                          BarChartRodData(
+                            toY: _accelerometerValues![0],
+                            color: Colors.red,
+                          ),
+                        ],
+                      ),
+                      BarChartGroupData(
+                        x: 1,
+                        barRods: [
+                          BarChartRodData(
+                            toY: _accelerometerValues![1],
+                            color: Colors.green,
+                          ),
+                        ],
+                      ),
+                      BarChartGroupData(
+                        x: 2,
+                        barRods: [
+                          BarChartRodData(
+                            toY: _accelerometerValues![2],
+                            color: Colors.blue,
+                          ),
+                        ],
+                      ),
+                    ]),
+                    swapAnimationDuration: Duration(milliseconds: 150),
+                    swapAnimationCurve: Curves.linear,
+                  ),
+                ),
               ),
             ],
           ),
