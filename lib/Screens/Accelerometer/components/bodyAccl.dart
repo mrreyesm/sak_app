@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
+import 'package:flutter_echarts/flutter_echarts.dart';
 
 class AccelerometerData extends StatefulWidget {
   const AccelerometerData({Key? key}) : super(key: key);
@@ -45,45 +46,97 @@ class _AccelerometerDataState extends State<AccelerometerData> {
           SizedBox(height: size.height * 0.03),
           Row(
             children: [
-              Expanded(
-                child: Container(
-                  height: size.height * 0.4,
-                  width: size.width * 0.4,
-                  child: BarChart(
-                    BarChartData(barGroups: [
-                      BarChartGroupData(
-                        x: 0,
-                        barRods: [
-                          BarChartRodData(
-                            toY: _accelerometerValues![0],
-                            color: Colors.red,
-                          ),
-                        ],
-                      ),
-                      BarChartGroupData(
-                        x: 1,
-                        barRods: [
-                          BarChartRodData(
-                            toY: _accelerometerValues![1],
-                            color: Colors.green,
-                          ),
-                        ],
-                      ),
-                      BarChartGroupData(
-                        x: 2,
-                        barRods: [
-                          BarChartRodData(
-                            toY: _accelerometerValues![2],
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                    ]),
-                    swapAnimationDuration: Duration(milliseconds: 150),
-                    swapAnimationCurve: Curves.linear,
-                  ),
+              Container(
+                height: size.height * 0.4,
+                width: size.width,
+                child: Echarts(
+                  option: '''
+                        {
+                          xAxis: {
+        type: 'category',
+        data: ['X', 'Y', 'Z']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [${accelerometer[0]}, ${accelerometer[1]}, ${accelerometer[2]}],
+        type: 'line'
+      }]
+
+                        } ''',
                 ),
+
+                // child: Echarts(
+                //   option: '''
+                //     {
+                //       title: {
+                //         text: 'Accelerometer Data'
+                //       },
+                //       tooltip: {},
+                //       legend: {
+                //         data: ['X', 'Y', 'Z']
+                //       },
+                //       xAxis: {
+                //         data: ["X", "Y", "Z"]
+                //       },
+                //       yAxis: {},
+                //       series: [{
+                //         name: 'X',
+                //         type: 'data',
+                //         data: [${accelerometer[0]}]
+                //       }, {
+                //         name: 'Y',
+                //         type: 'value',
+                //         data: [${accelerometer[1]}]
+                //       }, {
+                //         name: 'Z',
+                //         type: 'line',
+                //         data: [${accelerometer[2]}]
+                //       }]
+                //     }
+                //   ''',
+
+                // ),
               ),
+              // child: Container(
+              //   height: size.height * 0.4,
+              //   width: size.width * 0.4,
+              //   child: BarChart(
+              //     BarChartData(barGroups: [
+              //       BarChartGroupData(
+              //         x: 0,
+              //         barRods: [
+              //           BarChartRodData(
+              //             toY: _accelerometerValues![0],
+              //             color: Colors.red,
+              //           ),
+              //         ],
+              //       ),
+              //       BarChartGroupData(
+              //         x: 1,
+              //         barRods: [
+              //           BarChartRodData(
+              //             toY: _accelerometerValues![1],
+              //             color: Colors.green,
+              //           ),
+              //         ],
+              //       ),
+              //       BarChartGroupData(
+              //         x: 2,
+              //         barRods: [
+              //           BarChartRodData(
+              //             toY: _accelerometerValues![2],
+              //             color: Colors.blue,
+              //           ),
+              //         ],
+              //       ),
+              //     ]),
+              //     swapAnimationDuration: Duration(milliseconds: 150),
+              //     swapAnimationCurve: Curves.linear,
+              //   ),
+              // ),
+              //   ),
             ],
           ),
           SizedBox(height: size.height * 0.03),
