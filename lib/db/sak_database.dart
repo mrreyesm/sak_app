@@ -19,7 +19,7 @@ class SakDatabase {
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
-    return await openDatabase(path, version: 2, onCreate: _createDB);
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future<void> _createDB(Database db, int version) async {
@@ -41,28 +41,16 @@ ${UserFields.password} $textType
 '''); 
 
     await db.execute('''
-CREATE TABLE $tableAcceleromtr(
-${AcceleromtrFields.id} $idType,
-${AcceleromtrFields.sensor} $textType,
-${AcceleromtrFields.name} $textType,
-${AcceleromtrFields.xAxis} $textType,
-${AcceleromtrFields.yAxis} $textType,
-${AcceleromtrFields.zAxis} $textType,
-${AcceleromtrFields.time} $textType,
+CREATE TABLE $tableSensors(
+${SensorFields.id} $idType,
+${SensorFields.sensor} $textType,
+${SensorFields.name} $textType,
+${SensorFields.xAxis} $textType,
+${SensorFields.yAxis} $textType,
+${SensorFields.zAxis} $textType,
+${SensorFields.time} $textType
 )
 '''); 
-
-    await db.execute('''
-CREATE TABLE $tableGyro(
-${GyroFields.id} $idType,
-${GyroFields.sensor} $textType,
-${GyroFields.name} $textType,
-${GyroFields.xAxis} $textType,
-${GyroFields.yAxis} $textType,
-${GyroFields.zAxis} $textType,
-${GyroFields.time} $textType,
-)
-''');
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -128,123 +116,62 @@ ${GyroFields.time} $textType,
 
 
   ////////////////////////////////////////////////////////////////////////////////
-  ///Acceleromtr
+  ///Sensor
   ///////////////////////////////////////////////////////////////////////////////
   
-    Future<Acceleromtr> createAcceleromtr(Acceleromtr acceleromtr) async {
+    Future<Sensor> createSensor(Sensor sensor) async {
     final db = await instance.database;
-    final id = await db.insert(tableAcceleromtr, acceleromtr.toJson());
-    return acceleromtr.copy(id: id);
+    final id = await db.insert(tableSensors, sensor.toJson());
+    return sensor.copy(id: id);
   }
 
-  Future<Acceleromtr> readAcceleromtr(int id) async {
+  Future<Sensor> readSensor(int id) async {
     final db = await instance.database;
 
     final maps = await db.query(
-      tableAcceleromtr,
-      columns: AcceleromtrFields.values,
-      where: '${AcceleromtrFields.id} = ?',
+      tableSensors,
+      columns: SensorFields.values,
+      where: '${SensorFields.id} = ?',
       whereArgs: [id],
     );
 
     if (maps.isNotEmpty) {
-      return Acceleromtr.fromJson(maps.first);
+      return Sensor.fromJson(maps.first);
     } else {
       throw Exception('ID $id not found');
     }
   }
 
-  Future<List<Acceleromtr>> readAllAcceleromtrs() async {
+  Future<List<Sensor>> readAllSensors() async {
     final db = await instance.database;
-    final orderBy = '${AcceleromtrFields.id} DESC';   
-    final result = await db.query(tableAcceleromtr, orderBy: orderBy);
+    final orderBy = '${SensorFields.id} DESC';   
+    final result = await db.query(tableSensors, orderBy: orderBy);
 
-    return result.map((json) => Acceleromtr.fromJson(json)).toList();
+    return result.map((json) => Sensor.fromJson(json)).toList();
   }
 
-  Future<void> updateAcceleromtr(Acceleromtr acceleromtr) async {
+  Future<void> updateSensor(Sensor sensor) async {
     final db = await instance.database;
 
     await db.update(
-      tableAcceleromtr,
-      acceleromtr.toJson(),
-      where: '${AcceleromtrFields.id} = ?',
-      whereArgs: [acceleromtr.id],
+      tableSensors,
+      sensor.toJson(),
+      where: '${SensorFields.id} = ?',
+      whereArgs: [sensor.id],
     );
   }
 
-  Future<void> deleteAcceleromtr(int id) async {
+  Future<void> deleteSensor(int id) async {
     final db = await instance.database;
 
     await db.delete(
-      tableAcceleromtr,
-      where: '${AcceleromtrFields.id} = ?',
+      tableSensors,
+      where: '${SensorFields.id} = ?',
       whereArgs: [id],
     );
   }
 
   Future<void> closeAcceleromtr() async {
-    final db = await instance.database;
-    db.close();
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////
-  ///Gyroscope
-  ////////////////////////////////////////////////////////////////////////////////
-  
-    Future<Gyro> createGyro(Gyro gyro) async {
-    final db = await instance.database;
-    final id = await db.insert(tableGyro, gyro.toJson());
-    return gyro.copy(id: id);
-  }
-
-  Future<Gyro> readGyro(int id) async {
-    final db = await instance.database;
-
-    final maps = await db.query(
-      tableGyro,
-      columns: GyroFields.values,
-      where: '${GyroFields.id} = ?',
-      whereArgs: [id],
-    );
-
-    if (maps.isNotEmpty) {
-      return Gyro.fromJson(maps.first);
-    } else {
-      throw Exception('ID $id not found');
-    }
-  }
-
-  Future<List<Gyro>> readAllGyros() async {
-    final db = await instance.database;
-    final orderBy = '${GyroFields.id} DESC';   
-    final result = await db.query(tableGyro, orderBy: orderBy);
-
-    return result.map((json) => Gyro.fromJson(json)).toList();
-  }
-
-  Future<void> updateGyro(Gyro gyro) async {
-    final db = await instance.database;
-
-    await db.update(
-      tableGyro,
-      gyro.toJson(),
-      where: '${GyroFields.id} = ?',
-      whereArgs: [gyro.id],
-    );
-  }
-
-  Future<void> deleteGyro(int id) async {
-    final db = await instance.database;
-
-    await db.delete(
-      tableGyro,
-      where: '${GyroFields.id} = ?',
-      whereArgs: [id],
-    );
-  }
-
-  Future<void> closeGyro() async {
     final db = await instance.database;
     db.close();
   }

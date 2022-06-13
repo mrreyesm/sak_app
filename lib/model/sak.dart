@@ -1,7 +1,6 @@
 
 final String tableUsers = 'users';
-final String tableAcceleromtr = 'acceleromtr';
-final String tableGyro = 'gyro';
+final String tableSensors = 'sensors';
 
 class UserFields {
   static final List<String> values = [
@@ -23,27 +22,7 @@ class UserFields {
   static final String password = 'password';
 }
 
-class AcceleromtrFields {
-  static final List<String> values = [
-    id,
-    sensor,
-    name,
-    xAxis,
-    yAxis,
-    zAxis,
-    time
-  ];
-
-  static final String id = '_id';
-  static final String sensor = 'sensor';
-  static final String name = 'name';
-  static final String xAxis = 'xAxis';
-  static final String yAxis = 'yAxis';
-  static final String zAxis = 'zAxis';
-  static final String time = 'time';
-}
-
-class GyroFields {
+class SensorFields {
   static final List<String> values = [
     id,
     sensor,
@@ -127,7 +106,7 @@ class User {
 }
 
 
-class Acceleromtr {
+class Sensor {
   final int? id;
   final String sensor;
   final String name;
@@ -136,7 +115,7 @@ class Acceleromtr {
   final String zAxis;
   final String time;
   
-  const Acceleromtr({
+  const Sensor({
     this.id,
     required this.sensor,
     required this.name,
@@ -146,7 +125,7 @@ class Acceleromtr {
     required this.time,
   }); 
   
-  Acceleromtr copy({
+  Sensor copy({
     int? id,
     String? sensor,
     String? name,
@@ -155,7 +134,7 @@ class Acceleromtr {
     String? zAxis,
     String? time,
   }) {
-    return Acceleromtr(
+    return Sensor(
       id: id ?? this.id,
       sensor: sensor ?? this.sensor,
       name: name ?? this.name,
@@ -166,90 +145,26 @@ class Acceleromtr {
     );
   }
 
-  static Acceleromtr fromJson(Map<String, dynamic> json) {
-    return Acceleromtr(
-      id: json[AcceleromtrFields.id] as int,
-      sensor: json[AcceleromtrFields.sensor] as String,
-      name: json[AcceleromtrFields.name] as String,
-      xAxis: json[AcceleromtrFields.xAxis] as String,
-      yAxis: json[AcceleromtrFields.yAxis] as String,
-      zAxis: json[AcceleromtrFields.zAxis] as String,
-      time: json[AcceleromtrFields.time] as String,
+  static Sensor fromJson(Map<String, dynamic> json) {
+    return Sensor(
+      id: json[SensorFields.id] as int,
+      sensor: json[SensorFields.sensor] as String,
+      name: json[SensorFields.name] as String,
+      xAxis: json[SensorFields.xAxis] as String,
+      yAxis: json[SensorFields.yAxis] as String,
+      zAxis: json[SensorFields.zAxis] as String,
+      time: json[SensorFields.time] as String,
     );
   }
 
   Map<String, Object?> toJson() => {
-  AcceleromtrFields.id: id,
-  AcceleromtrFields.sensor: sensor,
-  AcceleromtrFields.name: name,
-  AcceleromtrFields.xAxis: xAxis,
-  AcceleromtrFields.yAxis: yAxis,
-  AcceleromtrFields.zAxis: zAxis,
-  AcceleromtrFields.time: time,  
-};
-
-}
-
-
-class Gyro {
-  final int? id;
-  final String sensor;
-  final String name;
-  final String xAxis;
-  final String yAxis;
-  final String zAxis;
-  final String time;
-  
-  const Gyro({
-    this.id,
-    required this.sensor,
-    required this.name,
-    required this.xAxis,
-    required this.yAxis,
-    required this.zAxis,
-    required this.time,
-  }); 
-  
-  Gyro copy({
-    int? id,
-    String? sensor,
-    String? name,
-    String? xAxis,
-    String? yAxis,
-    String? zAxis,
-    String? time,
-  }) {
-    return Gyro(
-      id: id ?? this.id,
-      sensor: sensor ?? this.sensor,
-      name: name ?? this.name,
-      xAxis: xAxis ?? this.xAxis,
-      yAxis: yAxis ?? this.yAxis,
-      zAxis: zAxis ?? this.zAxis,
-      time: time ?? this.time,
-    );
-  }
-
-  static Gyro fromJson(Map<String, dynamic> json) {
-    return Gyro(
-      id: json[GyroFields.id] as int,
-      sensor: json[GyroFields.sensor] as String,
-      name: json[GyroFields.name] as String,
-      xAxis: json[GyroFields.xAxis] as String,
-      yAxis: json[GyroFields.yAxis] as String,
-      zAxis: json[GyroFields.zAxis] as String,
-      time: json[GyroFields.time] as String,
-    );
-  }
-
-  Map<String, Object?> toJson() => {
-  GyroFields.id: id,
-  GyroFields.sensor: sensor,
-  GyroFields.name: name,
-  GyroFields.xAxis: xAxis,
-  GyroFields.yAxis: yAxis,
-  GyroFields.zAxis: zAxis,
-  GyroFields.time: time,  
+  SensorFields.id: id,
+  SensorFields.sensor: sensor,
+  SensorFields.name: name,
+  SensorFields.xAxis: xAxis,
+  SensorFields.yAxis: yAxis,
+  SensorFields.zAxis: zAxis,
+  SensorFields.time: time,  
 };
 
 }

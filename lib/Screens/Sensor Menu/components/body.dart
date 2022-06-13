@@ -4,6 +4,7 @@ import 'package:sak_app/Screens/Gyroscope/gyroscopePage.dart';
 import 'package:sak_app/Screens/Login/login_screen.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/components/background.dart';
 import 'package:sak_app/Screens/BarcodeScanner/barcodeScannerPage.dart';
+import 'package:sak_app/Screens/CSVExport/csvExportPage.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -91,9 +92,13 @@ class Body extends StatelessWidget {
             ], borderRadius: BorderRadius.circular(10), color: Colors.white),
             padding: const EdgeInsets.all(8),
           ),
-          Container(
+          Container(//
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CSVExportScreen()));
+              },
               child: new GridTile(
                   child: new Image.asset(
                 "assets/icons/export.png",
