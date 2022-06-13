@@ -61,7 +61,8 @@ class _AccelerometerDataState extends State<AccelerometerData> {
       },
       series: [{
         data: [${accelerometer[0]}, ${accelerometer[1]}, ${accelerometer[2]}],
-        type: 'line'
+        colorBy: 'data',
+        type: 'bar'
       }]
 
                         } ''',

@@ -3,6 +3,7 @@ import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_echarts/flutter_echarts.dart';
 
 class SensorData extends StatefulWidget {
   const SensorData({Key? key}) : super(key: key);
@@ -48,39 +49,57 @@ class _SensorDataState extends State<SensorData> {
                 child: Container(
                   height: size.height * 0.4,
                   width: size.width * 0.4,
-                  child: BarChart(
-                    BarChartData(barGroups: [
-                      BarChartGroupData(
-                        x: 0,
-                        barRods: [
-                          BarChartRodData(
-                            toY: _gyroscopeValues![0],
-                            color: Colors.red,
-                          ),
-                        ],
-                      ),
-                      BarChartGroupData(
-                        x: 1,
-                        barRods: [
-                          BarChartRodData(
-                            toY: _gyroscopeValues![1],
-                            color: Colors.green,
-                          ),
-                        ],
-                      ),
-                      BarChartGroupData(
-                        x: 2,
-                        barRods: [
-                          BarChartRodData(
-                            toY: _gyroscopeValues![2],
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                    ]),
-                    swapAnimationDuration: Duration(milliseconds: 150),
-                    swapAnimationCurve: Curves.linear,
+                  child: Echarts(
+                    option: '''
+                        {
+                          xAxis: {
+        type: 'category',
+        data: ['X', 'Y', 'Z']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [${gyroscope[0]}, ${gyroscope[1]}, ${gyroscope[2]}],
+        colorBy: 'data',
+        type: 'bar'
+      }]
+
+                        } ''',
                   ),
+                  // child: BarChart(
+                  //   BarChartData(barGroups: [
+                  //     BarChartGroupData(
+                  //       x: 0,
+                  //       barRods: [
+                  //         BarChartRodData(
+                  //           toY: _gyroscopeValues![0],
+                  //           color: Colors.red,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     BarChartGroupData(
+                  //       x: 1,
+                  //       barRods: [
+                  //         BarChartRodData(
+                  //           toY: _gyroscopeValues![1],
+                  //           color: Colors.green,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     BarChartGroupData(
+                  //       x: 2,
+                  //       barRods: [
+                  //         BarChartRodData(
+                  //           toY: _gyroscopeValues![2],
+                  //           color: Colors.blue,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ]),
+                  //   swapAnimationDuration: Duration(milliseconds: 150),
+                  //   swapAnimationCurve: Curves.linear,
+                  // ),
                 ),
               ),
             ],
