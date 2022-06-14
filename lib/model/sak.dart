@@ -113,7 +113,7 @@ class Sensor {
   final String xAxis;
   final String yAxis;
   final String zAxis;
-  final String time;
+  final DateTime time;
   
   const Sensor({
     this.id,
@@ -132,7 +132,7 @@ class Sensor {
     String? xAxis,
     String? yAxis,
     String? zAxis,
-    String? time,
+    DateTime? time,
   }) {
     return Sensor(
       id: id ?? this.id,
@@ -153,7 +153,7 @@ class Sensor {
       xAxis: json[SensorFields.xAxis] as String,
       yAxis: json[SensorFields.yAxis] as String,
       zAxis: json[SensorFields.zAxis] as String,
-      time: json[SensorFields.time] as String,
+      time: DateTime.parse(json[SensorFields.time] as String),
     );
   }
 
@@ -164,7 +164,7 @@ class Sensor {
   SensorFields.xAxis: xAxis,
   SensorFields.yAxis: yAxis,
   SensorFields.zAxis: zAxis,
-  SensorFields.time: time,  
+  SensorFields.time: time.toIso8601String(),  
 };
 
 }
