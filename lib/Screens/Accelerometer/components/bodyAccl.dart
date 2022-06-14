@@ -5,6 +5,8 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
 import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:sak_app/db/sak_database.dart';
+import 'package:sak_app/model/sak.dart';
 
 class AccelerometerData extends StatefulWidget {
   const AccelerometerData({Key? key}) : super(key: key);
@@ -22,6 +24,8 @@ class _AccelerometerDataState extends State<AccelerometerData> {
     Size size = MediaQuery.of(context).size;
     final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
+    final livesensor = "Accelerometer";
+    final livename = "test";
 
     return Background(
       child: Column(
@@ -153,7 +157,19 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                           image: DecorationImage(
                               image: AssetImage("assets/icons/play.png"))),
                     ),
-                    onTap: () {},
+                    onTap: () async {
+                    final sensor = Sensor(
+                      sensor: livesensor,
+                      name: livename,
+                      xAxis: accelerometer[0],
+                      yAxis: accelerometer[1],
+                      zAxis: accelerometer[2],
+                      time: DateTime.now(),
+                    );
+
+                  await SakDatabase.instance.createSensor(sensor);
+
+                    },
                   ),
                   InkWell(
                     child: Ink(
