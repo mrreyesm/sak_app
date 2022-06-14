@@ -171,7 +171,7 @@ ${SensorFields.time} $textType
     );
   }
 
-  Future<void> closeAcceleromtr() async {
+  Future<void> closeSensor() async {
     final db = await instance.database;
     db.close();
   }
