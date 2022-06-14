@@ -38,19 +38,27 @@ ${UserFields.employeeId} $textType,
 ${UserFields.phoneNumber} $textType,
 ${UserFields.password} $textType
 )
-''');        
+'''); 
+
+    await db.execute('''
+CREATE TABLE $tableSensors(
+${SensorFields.id} $idType,
+${SensorFields.sensor} $textType,
+${SensorFields.name} $textType,
+${SensorFields.xAxis} $textType,
+${SensorFields.yAxis} $textType,
+${SensorFields.zAxis} $textType,
+${SensorFields.time} $textType
+)
+'''); 
   }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ///Users
+  ///////////////////////////////////////////////////////////////////////////////
 
   Future<User> create(User user) async {
     final db = await instance.database;
-
-        // final json = user.toJson();
-    // final columns =
-    //     '${UserFields.title}, ${UserFields.description}, ${UserFields.time}';
-    // final values =
-    //     '${json[UserFields.title]}, ${json[UserFields.description]}, ${json[UserFields.time]}';
-    // final id = await db
-    //     .rawInsert('INSERT INTO table_name ($columns) VALUES ($values)');
     final id = await db.insert(tableUsers, user.toJson());
     return user.copy(id: id);
   }
@@ -75,8 +83,6 @@ ${UserFields.password} $textType
   Future<List<User>> readAllUsers() async {
     final db = await instance.database;
     final orderBy = '${UserFields.id} DESC';   
-    // final result =
-    //     await db.rawQuery('SELECT * FROM $tableUsers ORDER BY $orderBy');
     final result = await db.query(tableUsers, orderBy: orderBy);
 
     return result.map((json) => User.fromJson(json)).toList();
@@ -104,6 +110,68 @@ ${UserFields.password} $textType
   }
 
   Future<void> close() async {
+    final db = await instance.database;
+    db.close();
+  }
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ///Sensor
+  ///////////////////////////////////////////////////////////////////////////////
+  
+    Future<Sensor> createSensor(Sensor sensor) async {
+    final db = await instance.database;
+    final id = await db.insert(tableSensors, sensor.toJson());
+    return sensor.copy(id: id);
+  }
+
+  Future<Sensor> readSensor(int id) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableSensors,
+      columns: SensorFields.values,
+      where: '${SensorFields.id} = ?',
+      whereArgs: [id],
+    );
+
+    if (maps.isNotEmpty) {
+      return Sensor.fromJson(maps.first);
+    } else {
+      throw Exception('ID $id not found');
+    }
+  }
+
+  Future<List<Sensor>> readAllSensors() async {
+    final db = await instance.database;
+    final orderBy = '${SensorFields.id} DESC';   
+    final result = await db.query(tableSensors, orderBy: orderBy);
+
+    return result.map((json) => Sensor.fromJson(json)).toList();
+  }
+
+  Future<void> updateSensor(Sensor sensor) async {
+    final db = await instance.database;
+
+    await db.update(
+      tableSensors,
+      sensor.toJson(),
+      where: '${SensorFields.id} = ?',
+      whereArgs: [sensor.id],
+    );
+  }
+
+  Future<void> deleteSensor(int id) async {
+    final db = await instance.database;
+
+    await db.delete(
+      tableSensors,
+      where: '${SensorFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> closeAcceleromtr() async {
     final db = await instance.database;
     db.close();
   }

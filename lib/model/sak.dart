@@ -1,5 +1,6 @@
 
 final String tableUsers = 'users';
+final String tableSensors = 'sensors';
 
 class UserFields {
   static final List<String> values = [
@@ -19,6 +20,26 @@ class UserFields {
   static final String employeeId = 'employeeId';
   static final String phoneNumber = 'phoneNumber';
   static final String password = 'password';
+}
+
+class SensorFields {
+  static final List<String> values = [
+    id,
+    sensor,
+    name,
+    xAxis,
+    yAxis,
+    zAxis,
+    time
+  ];
+
+  static final String id = '_id';
+  static final String sensor = 'sensor';
+  static final String name = 'name';
+  static final String xAxis = 'xAxis';
+  static final String yAxis = 'yAxis';
+  static final String zAxis = 'zAxis';
+  static final String time = 'time';
 }
 
 class User {
@@ -80,6 +101,70 @@ class User {
   UserFields.employeeId: employeeId,
   UserFields.phoneNumber: phoneNumber,
   UserFields.password: password,
+};
+
+}
+
+
+class Sensor {
+  final int? id;
+  final String sensor;
+  final String name;
+  final String xAxis;
+  final String yAxis;
+  final String zAxis;
+  final String time;
+  
+  const Sensor({
+    this.id,
+    required this.sensor,
+    required this.name,
+    required this.xAxis,
+    required this.yAxis,
+    required this.zAxis,
+    required this.time,
+  }); 
+  
+  Sensor copy({
+    int? id,
+    String? sensor,
+    String? name,
+    String? xAxis,
+    String? yAxis,
+    String? zAxis,
+    String? time,
+  }) {
+    return Sensor(
+      id: id ?? this.id,
+      sensor: sensor ?? this.sensor,
+      name: name ?? this.name,
+      xAxis: xAxis ?? this.xAxis,
+      yAxis: yAxis ?? this.yAxis,
+      zAxis: zAxis ?? this.zAxis,
+      time: time ?? this.time,
+    );
+  }
+
+  static Sensor fromJson(Map<String, dynamic> json) {
+    return Sensor(
+      id: json[SensorFields.id] as int,
+      sensor: json[SensorFields.sensor] as String,
+      name: json[SensorFields.name] as String,
+      xAxis: json[SensorFields.xAxis] as String,
+      yAxis: json[SensorFields.yAxis] as String,
+      zAxis: json[SensorFields.zAxis] as String,
+      time: json[SensorFields.time] as String,
+    );
+  }
+
+  Map<String, Object?> toJson() => {
+  SensorFields.id: id,
+  SensorFields.sensor: sensor,
+  SensorFields.name: name,
+  SensorFields.xAxis: xAxis,
+  SensorFields.yAxis: yAxis,
+  SensorFields.zAxis: zAxis,
+  SensorFields.time: time,  
 };
 
 }

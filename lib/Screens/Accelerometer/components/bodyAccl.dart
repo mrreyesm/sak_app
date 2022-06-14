@@ -5,6 +5,8 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:core';
 import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:sak_app/db/sak_database.dart';
+import 'package:sak_app/model/sak.dart';
 
 class AccelerometerData extends StatefulWidget {
   const AccelerometerData({Key? key}) : super(key: key);
