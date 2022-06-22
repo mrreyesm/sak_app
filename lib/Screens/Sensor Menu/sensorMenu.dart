@@ -24,21 +24,6 @@ class SensorScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("Sensor Menu"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text("Logout"),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
-              },
-            ),
-            ListTile(
               title: Text("Help"),
               onTap: () {
                 Navigator.push(
@@ -52,6 +37,15 @@ class SensorScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const About()));
+              },
+            ),
+            ListTile(
+              title: Text("Logout"),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
               },
             ),
           ],
