@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sak_app/Screens/About/about.dart';
+import 'package:sak_app/Screens/Help/help.dart';
 import 'package:sak_app/Screens/Login/login_screen.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/components/body.dart';
 
@@ -22,9 +24,19 @@ class SensorScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("Sensor Menu"),
+              title: Text("Help"),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HelpScreen()));
+              },
+            ),
+            ListTile(
+              title: Text("About"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const About()));
               },
             ),
             ListTile(
