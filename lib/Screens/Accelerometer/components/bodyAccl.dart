@@ -101,7 +101,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Enter Live Sensor Name"),
+                              title: Text("Enter Recording Name"),
                               content: TextField(
                                 onChanged: (value) {
                                   setState(() {
@@ -110,7 +110,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                                     },
                                 controller: livenameField,
                                 decoration: InputDecoration(
-                                  labelText: "Live Sensor Name",
+                                  labelText: "Recoding Name",
                                 ),
                               ),
                               actions: <Widget>[

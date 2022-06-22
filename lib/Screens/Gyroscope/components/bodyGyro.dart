@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
