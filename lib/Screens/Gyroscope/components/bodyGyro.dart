@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
@@ -14,6 +16,9 @@ class SensorData extends StatefulWidget {
 
 class _SensorDataState extends State<SensorData> {
   List<double>? _gyroscopeValues;
+  bool _recordingCheck = false;
+  AssetImage _playImage = AssetImage("assets/icons/play.png");
+  AssetImage _stopImage = AssetImage("assets/icons/inactivestop.png");
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   @override
@@ -31,7 +36,7 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}",
+                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nRecording: $_recordingCheck",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -53,53 +58,19 @@ class _SensorDataState extends State<SensorData> {
                     option: '''
                         {
                           xAxis: {
-        type: 'category',
-        data: ['X', 'Y', 'Z']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [${gyroscope[0]}, ${gyroscope[1]}, ${gyroscope[2]}],
-        colorBy: 'data',
-        type: 'bar'
-      }]
-
+                          type: 'category',
+                          data: ['X', 'Y', 'Z']
+                          },
+                          yAxis: {
+                          type: 'value'
+                          },
+                          series: [{
+                          data: [${gyroscope[0]}, ${gyroscope[1]}, ${gyroscope[2]}],
+                          colorBy: 'data',
+                          type: 'bar'
+                          }]
                         } ''',
                   ),
-                  // child: BarChart(
-                  //   BarChartData(barGroups: [
-                  //     BarChartGroupData(
-                  //       x: 0,
-                  //       barRods: [
-                  //         BarChartRodData(
-                  //           toY: _gyroscopeValues![0],
-                  //           color: Colors.red,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     BarChartGroupData(
-                  //       x: 1,
-                  //       barRods: [
-                  //         BarChartRodData(
-                  //           toY: _gyroscopeValues![1],
-                  //           color: Colors.green,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     BarChartGroupData(
-                  //       x: 2,
-                  //       barRods: [
-                  //         BarChartRodData(
-                  //           toY: _gyroscopeValues![2],
-                  //           color: Colors.blue,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ]),
-                  //   swapAnimationDuration: Duration(milliseconds: 150),
-                  //   swapAnimationCurve: Curves.linear,
-                  // ),
                 ),
               ),
             ],
@@ -114,10 +85,17 @@ class _SensorDataState extends State<SensorData> {
                       height: size.height * 0.15,
                       width: size.width * (1 / 3),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/play.png"))),
+                        image: DecorationImage(image: _playImage),
+                      ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        _recordingCheck = !_recordingCheck;
+                        _playImage =
+                            AssetImage("assets/icons/inactiveplay.png");
+                        _stopImage = AssetImage("assets/icons/stop.png");
+                      });
+                    },
                   ),
                   InkWell(
                     child: Ink(
@@ -134,10 +112,16 @@ class _SensorDataState extends State<SensorData> {
                       height: size.height * 0.15,
                       width: size.width * (1 / 3),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/stop.png"))),
+                          image: DecorationImage(image: _stopImage)),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        _recordingCheck = !_recordingCheck;
+                        _playImage = AssetImage("assets/icons/play.png");
+                        _stopImage =
+                            AssetImage("assets/icons/inactivestop.png");
+                      });
+                    },
                   ),
                 ],
               ),
