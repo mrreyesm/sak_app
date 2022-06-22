@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 
 class SensorData extends StatefulWidget {
@@ -89,6 +86,7 @@ class _SensorDataState extends State<SensorData> {
                       ),
                     ),
                     onTap: () {
+                      if (_recordingCheck == true) return;
                       setState(() {
                         _recordingCheck = !_recordingCheck;
                         _playImage =
@@ -116,6 +114,7 @@ class _SensorDataState extends State<SensorData> {
                     ),
                     onTap: () {
                       setState(() {
+                        if (_recordingCheck == false) return;
                         _recordingCheck = !_recordingCheck;
                         _playImage = AssetImage("assets/icons/play.png");
                         _stopImage =
