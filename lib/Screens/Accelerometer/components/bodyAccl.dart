@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sak_app/Screens/Accelerometer/components/backgroundAccl.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -7,6 +8,8 @@ import 'dart:core';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:sak_app/db/sak_database.dart';
 import 'package:sak_app/model/sak.dart';
+
+final livenameField = TextEditingController();
 
 class AccelerometerData extends StatefulWidget {
   const AccelerometerData({Key? key}) : super(key: key);
@@ -25,7 +28,6 @@ class _AccelerometerDataState extends State<AccelerometerData> {
     final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
     final livesensor = "Accelerometer";
-    final livename = "test";
 
     return Background(
       child: Column(
@@ -158,6 +160,8 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               image: AssetImage("assets/icons/play.png"))),
                     ),
                     onTap: () async {
+                      showDialog(context: context, builder: (BuildContext context) => _buildPopupDialog(context),);
+                    var livename;
                     final sensor = Sensor(
                       sensor: livesensor,
                       name: livename,
@@ -221,4 +225,39 @@ class _AccelerometerDataState extends State<AccelerometerData> {
       ),
     );
   }
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return new AlertDialog(
+    title: const Text('Start'),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TextField(
+          decoration: InputDecoration(
+            labelText: 'Name Recording',
+          ),
+          controller: livenameField,   
+        ),
+      ],
+    ),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          var livename = livenameField.text;
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Save'),
+      ),
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Close'),
+      ),
+    ],
+  );
 }
