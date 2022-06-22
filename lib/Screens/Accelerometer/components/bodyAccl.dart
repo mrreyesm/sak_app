@@ -18,6 +18,9 @@ class AccelerometerData extends StatefulWidget {
 
 class _AccelerometerDataState extends State<AccelerometerData> {
   List<double>? _accelerometerValues;
+  bool _recordingCheck = false;
+  AssetImage _playImage = AssetImage("assets/icons/play.png");
+  AssetImage _stopImage = AssetImage("assets/icons/inactivestop.png");
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   @override
@@ -93,11 +96,17 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                       height: size.height * 0.15,
                       width: size.width * (1 / 3),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/play.png"))),
+                          image: DecorationImage(image: _playImage)),
                     ),
                     onTap: () async {
-                    await showDialog(
+                      if (_recordingCheck == true) return;
+                      setState(() {
+                        _recordingCheck = !_recordingCheck;
+                        _playImage =
+                            AssetImage("assets/icons/inactiveplay.png");
+                        _stopImage = AssetImage("assets/icons/stop.png");
+                      });
+                      await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
@@ -106,8 +115,8 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                                 onChanged: (value) {
                                   setState(() {
                                     valueText = value;
-                                    });
-                                    },
+                                  });
+                                },
                                 controller: livenameField,
                                 decoration: InputDecoration(
                                   labelText: "Recoding Name",
@@ -115,14 +124,13 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               ),
                               actions: <Widget>[
                                 TextButton(
-                                  child: Text("Save"),
-                                  onPressed: () async {
-                                    setState(() {
-                                      codeDialog = valueText;
-                                      Navigator.pop(context);
-                                        });
-                                  }
-                                ),
+                                    child: Text("Save"),
+                                    onPressed: () async {
+                                      setState(() {
+                                        codeDialog = valueText;
+                                        Navigator.pop(context);
+                                      });
+                                    }),
                                 TextButton(
                                   child: Text("Cancel"),
                                   onPressed: () {
@@ -132,17 +140,17 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                                   },
                                 ),
                               ],
-                              );
-                          });                         
-                    final sensor = Sensor(
-                      sensor: livesensor,
-                      name: codeDialog,
-                      xAxis: accelerometer[0],
-                      yAxis: accelerometer[1],
-                      zAxis: accelerometer[2],
-                      time: DateTime.now(),
-                    );
-                  await SakDatabase.instance.createSensor(sensor);
+                            );
+                          });
+                      final sensor = Sensor(
+                        sensor: livesensor,
+                        name: codeDialog,
+                        xAxis: accelerometer[0],
+                        yAxis: accelerometer[1],
+                        zAxis: accelerometer[2],
+                        time: DateTime.now(),
+                      );
+                      await SakDatabase.instance.createSensor(sensor);
                     },
                   ),
                   InkWell(
@@ -160,10 +168,17 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                       height: size.height * 0.15,
                       width: size.width * (1 / 3),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/icons/stop.png"))),
+                          image: DecorationImage(image: _stopImage)),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        if (_recordingCheck == false) return;
+                        _recordingCheck = !_recordingCheck;
+                        _playImage = AssetImage("assets/icons/play.png");
+                        _stopImage =
+                            AssetImage("assets/icons/inactivestop.png");
+                      });
+                    },
                   ),
                 ],
               ),
