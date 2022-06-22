@@ -9,8 +9,6 @@ import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:sak_app/db/sak_database.dart';
 import 'package:sak_app/model/sak.dart';
 
-final livenameField = TextEditingController();
-
 class AccelerometerData extends StatefulWidget {
   const AccelerometerData({Key? key}) : super(key: key);
 
@@ -28,11 +26,21 @@ class _AccelerometerDataState extends State<AccelerometerData> {
     final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
     final livesensor = "Accelerometer";
-
+    String valueText = "";
+    String codeDialog = "";
+    TextEditingController livenameField = TextEditingController();
     return Background(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            livesensor,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -160,19 +168,52 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               image: AssetImage("assets/icons/play.png"))),
                     ),
                     onTap: () async {
-                      showDialog(context: context, builder: (BuildContext context) => _buildPopupDialog(context),);
-                    var livename;
+                    await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Enter Live Sensor Name"),
+                              content: TextField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    valueText = value;
+                                    });
+                                    },
+                                controller: livenameField,
+                                decoration: InputDecoration(
+                                  labelText: "Live Sensor Name",
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text("Save"),
+                                  onPressed: () async {
+                                    setState(() {
+                                      codeDialog = valueText;
+                                      Navigator.pop(context);
+                                        });
+                                  }
+                                ),
+                                TextButton(
+                                  child: Text("Cancel"),
+                                  onPressed: () {
+                                    setState(() {
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                ),
+                              ],
+                              );
+                          });                         
                     final sensor = Sensor(
                       sensor: livesensor,
-                      name: livename,
+                      name: codeDialog,
                       xAxis: accelerometer[0],
                       yAxis: accelerometer[1],
                       zAxis: accelerometer[2],
                       time: DateTime.now(),
                     );
-
                   await SakDatabase.instance.createSensor(sensor);
-
                     },
                   ),
                   InkWell(
@@ -225,39 +266,4 @@ class _AccelerometerDataState extends State<AccelerometerData> {
       ),
     );
   }
-}
-
-Widget _buildPopupDialog(BuildContext context) {
-  return new AlertDialog(
-    title: const Text('Start'),
-    content: new Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TextField(
-          decoration: InputDecoration(
-            labelText: 'Name Recording',
-          ),
-          controller: livenameField,   
-        ),
-      ],
-    ),
-    actions: <Widget>[
-      new FlatButton(
-        onPressed: () {
-          var livename = livenameField.text;
-          Navigator.of(context).pop();
-        },
-        textColor: Theme.of(context).primaryColor,
-        child: const Text('Save'),
-      ),
-      new FlatButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        textColor: Theme.of(context).primaryColor,
-        child: const Text('Close'),
-      ),
-    ],
-  );
 }
