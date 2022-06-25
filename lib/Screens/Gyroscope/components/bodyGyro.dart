@@ -15,6 +15,7 @@ class SensorData extends StatefulWidget {
 class _SensorDataState extends State<SensorData> {
   List<double>? _gyroscopeValues;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+  bool isRecording = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,17 @@ class _SensorDataState extends State<SensorData> {
     return Background(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        //mainAxisAlignment: MainAxisAlignment.start,
+        children: [/*
+          SizedBox(height: size.height * 0.03),
+          Visibility(
+            child: Image.asset("assets/icons/recordbutton.png"),
+            visible: isRecording,
+            maintainState: true,
+            maintainSize: true,
+            maintainAnimation: true,
+          ),
+*/
           Row(
             children: [
               Expanded(
@@ -109,6 +120,7 @@ class _SensorDataState extends State<SensorData> {
             children: [
               Row(
                 children: <Widget>[
+                  
                   InkWell(
                     child: Ink(
                       height: size.height * 0.15,
@@ -117,7 +129,12 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(
                               image: AssetImage("assets/icons/play.png"))),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        isRecording = true;
+                        print("isRecording: $isRecording");
+                      });
+                    },
                   ),
                   InkWell(
                     child: Ink(
@@ -127,7 +144,12 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(
                               image: AssetImage("assets/icons/pause.png"))),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        isRecording = false;
+                        print("isRecording: $isRecording");
+                      });
+                    },
                   ),
                   InkWell(
                     child: Ink(
@@ -137,7 +159,12 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(
                               image: AssetImage("assets/icons/stop.png"))),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        isRecording = false;
+                        print("isRecording: $isRecording");
+                      });
+                    },
                   ),
                 ],
               ),
