@@ -1,5 +1,6 @@
 import 'dart:isolate';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
@@ -38,7 +39,7 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nRecording: $_recordingCheck\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z",
+                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -130,21 +131,33 @@ class _SensorDataState extends State<SensorData> {
                             AssetImage("assets/icons/inactivestop.png");
                         _recordingStopped();
                       });
-                      // AlertDialog(
-                      //   title: const Text('Recording Stopped'),
-                      //   content: const Text(
-                      //       'CSV file will be generated and stored. Start new'),
-                      //   actions: <Widget>[
-                      //     TextButton(
-                      //         onPressed: () {
-                      //           Navigator.pop(context, 'OK');
-                      //         },
-                      //         child: const Text('OK'))
-                      //   ],
-                      // );
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: size.width * (1 / 3),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: size.width * 0.1,
+                height: size.height * 0.08,
+                child: Visibility(
+                  child: Image.asset("assets/icons/play.png"),
+                  visible: _recordingCheck,
+                  maintainState: true,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                ),
+              ),
+              SizedBox(
+                width: size.width * (1 / 3),
               ),
             ],
           )
