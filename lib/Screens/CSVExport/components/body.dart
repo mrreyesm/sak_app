@@ -7,15 +7,13 @@ import 'package:sak_app/db/sak_database.dart';
 import 'package:sak_app/model/sak.dart';
 import 'package:intl/intl.dart';
 
-
 class SensorsPage extends StatefulWidget {
   @override
   _SensorsPageState createState() => _SensorsPageState();
 }
 
-
 class _SensorsPageState extends State<SensorsPage> {
-  late List<Sensor> sensors;
+  late List<Sensor> sensors = sensors;
   bool isLoading = false;
 
   @override
@@ -42,12 +40,9 @@ class _SensorsPageState extends State<SensorsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        _createDataTable()
-      ]
-    );
+    return ListView(children: [_createDataTable()]);
   }
+
   DataTable _createDataTable() {
     return DataTable(columns: _createColumns(), rows: _createRows());
   }
@@ -74,4 +69,3 @@ class _SensorsPageState extends State<SensorsPage> {
     return rows;
   }
 }
-
