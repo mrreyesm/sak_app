@@ -1,5 +1,4 @@
 import 'dart:isolate';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
@@ -121,14 +120,6 @@ class _SensorDataState extends State<SensorData> {
                     ),
                     onTap: () {
                       _confirmStopDialogue();
-                      // setState(() {
-                      //   if (_recordingCheck == false) return;
-                      //   _confirmStopDialogue();
-                      //   _recordingCheck = !_recordingCheck;
-                      //   _playImage = AssetImage("assets/icons/play.png");
-                      //   _stopImage =
-                      //       AssetImage("assets/icons/inactivestop.png");
-                      // });
                     },
                   ),
                 ],
@@ -209,8 +200,6 @@ class _SensorDataState extends State<SensorData> {
               child: const Text('Okay'),
               onPressed: () {
                 Navigator.of(context).pop();
-                // _confirmStop = true;
-                // _recordingCheck = true;
               },
             ),
           ],
@@ -247,7 +236,6 @@ class _SensorDataState extends State<SensorData> {
                   Navigator.of(context).pop();
                   setState(() {
                     if (_recordingCheck == false) return;
-                    // _confirmStopDialogue();
                     _recordingCheck = !_recordingCheck;
                     _playImage = AssetImage("assets/icons/play.png");
                     _stopImage = AssetImage("assets/icons/inactivestop.png");
