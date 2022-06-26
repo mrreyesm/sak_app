@@ -1,8 +1,12 @@
+import 'dart:isolate';
+
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:time/time.dart';
 
 class SensorData extends StatefulWidget {
   const SensorData({Key? key}) : super(key: key);
@@ -14,6 +18,8 @@ class SensorData extends StatefulWidget {
 class _SensorDataState extends State<SensorData> {
   List<double>? _gyroscopeValues;
   bool _recordingCheck = false;
+  DateTime _currentTime = DateTime.now();
+  DateTime _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
   AssetImage _playImage = AssetImage("assets/icons/play.png");
   AssetImage _stopImage = AssetImage("assets/icons/inactivestop.png");
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
@@ -33,7 +39,7 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nRecording: $_recordingCheck",
+                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -119,10 +125,35 @@ class _SensorDataState extends State<SensorData> {
                         _playImage = AssetImage("assets/icons/play.png");
                         _stopImage =
                             AssetImage("assets/icons/inactivestop.png");
+                        _recordingStopped();
                       });
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: size.width * (1 / 3),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: size.width * 0.2,
+                height: size.height * 0.1,
+                child: Visibility(
+                  child: Image.asset("assets/icons/recordbutton.png"),
+                  visible: _recordingCheck,
+                  maintainState: true,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                ),
+              ),
+              SizedBox(
+                width: size.width * (1 / 3),
               ),
             ],
           )
@@ -147,10 +178,40 @@ class _SensorDataState extends State<SensorData> {
       gyroscopeEvents.listen(
         (GyroscopeEvent event) {
           setState(() {
+            _currentTime = DateTime.now();
+            _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
             _gyroscopeValues = <double>[event.x, event.y, event.z];
           });
         },
       ),
+    );
+  }
+
+  Future<void> _recordingStopped() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Recording Stopped'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Recording Stopped'),
+                Text('Data stored as a CSV file'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
