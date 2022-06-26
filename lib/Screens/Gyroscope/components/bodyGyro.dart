@@ -1,5 +1,4 @@
 import 'dart:isolate';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
@@ -18,6 +17,7 @@ class SensorData extends StatefulWidget {
 class _SensorDataState extends State<SensorData> {
   List<double>? _gyroscopeValues;
   bool _recordingCheck = false;
+  bool _confirmStop = false;
   DateTime _currentTime = DateTime.now();
   DateTime _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
   AssetImage _playImage = AssetImage("assets/icons/play.png");
@@ -119,14 +119,7 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(image: _stopImage)),
                     ),
                     onTap: () {
-                      setState(() {
-                        if (_recordingCheck == false) return;
-                        _recordingCheck = !_recordingCheck;
-                        _playImage = AssetImage("assets/icons/play.png");
-                        _stopImage =
-                            AssetImage("assets/icons/inactivestop.png");
-                        _recordingStopped();
-                      });
+                      _confirmStopDialogue();
                     },
                   ),
                 ],
@@ -209,6 +202,47 @@ class _SensorDataState extends State<SensorData> {
                 Navigator.of(context).pop();
               },
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _confirmStopDialogue() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Session End'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Do you want to end the session?'),
+                Text('Data recording will be stopped'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _recordingCheck == false;
+              },
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    if (_recordingCheck == false) return;
+                    _recordingCheck = !_recordingCheck;
+                    _playImage = AssetImage("assets/icons/play.png");
+                    _stopImage = AssetImage("assets/icons/inactivestop.png");
+                  });
+                  _recordingStopped();
+                },
+                child: const Text('Yes'))
           ],
         );
       },
