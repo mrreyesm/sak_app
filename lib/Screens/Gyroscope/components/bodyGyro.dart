@@ -1,8 +1,11 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Gyroscope/components/backgroundGyro.dart';
 import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
+import 'package:time/time.dart';
 
 class SensorData extends StatefulWidget {
   const SensorData({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class SensorData extends StatefulWidget {
 class _SensorDataState extends State<SensorData> {
   List<double>? _gyroscopeValues;
   bool _recordingCheck = false;
+  DateTime _currentTime = DateTime.now();
+  DateTime _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
   AssetImage _playImage = AssetImage("assets/icons/play.png");
   AssetImage _stopImage = AssetImage("assets/icons/inactivestop.png");
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
@@ -33,7 +38,7 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nRecording: $_recordingCheck",
+                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nRecording: $_recordingCheck\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -103,7 +108,11 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(
                               image: AssetImage("assets/icons/pause.png"))),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        final Capability? pauseCapability;
+                      });
+                    },
                   ),
                   InkWell(
                     child: Ink(
@@ -119,7 +128,20 @@ class _SensorDataState extends State<SensorData> {
                         _playImage = AssetImage("assets/icons/play.png");
                         _stopImage =
                             AssetImage("assets/icons/inactivestop.png");
+                        _recordingStopped();
                       });
+                      // AlertDialog(
+                      //   title: const Text('Recording Stopped'),
+                      //   content: const Text(
+                      //       'CSV file will be generated and stored. Start new'),
+                      //   actions: <Widget>[
+                      //     TextButton(
+                      //         onPressed: () {
+                      //           Navigator.pop(context, 'OK');
+                      //         },
+                      //         child: const Text('OK'))
+                      //   ],
+                      // );
                     },
                   ),
                 ],
@@ -147,10 +169,40 @@ class _SensorDataState extends State<SensorData> {
       gyroscopeEvents.listen(
         (GyroscopeEvent event) {
           setState(() {
+            _currentTime = DateTime.now();
+            _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
             _gyroscopeValues = <double>[event.x, event.y, event.z];
           });
         },
       ),
+    );
+  }
+
+  Future<void> _recordingStopped() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Recording Stopped'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Recording Stopped'),
+                Text('Data stored as a CSV file'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
