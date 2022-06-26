@@ -44,6 +44,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.1.59
   fl_chart: ^0.51.0
   flutter_echarts: ^2.3.0
+  time: ^2.1.1
 
 dev_dependencies:
   flutter_test:
