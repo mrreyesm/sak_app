@@ -109,11 +109,7 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(
                               image: AssetImage("assets/icons/pause.png"))),
                     ),
-                    onTap: () {
-                      setState(() {
-                        final Capability? pauseCapability;
-                      });
-                    },
+                    onTap: () {},
                   ),
                   InkWell(
                     child: Ink(
@@ -146,10 +142,10 @@ class _SensorDataState extends State<SensorData> {
               ),
               Container(
                 alignment: Alignment.center,
-                width: size.width * 0.1,
-                height: size.height * 0.08,
+                width: size.width * 0.2,
+                height: size.height * 0.1,
                 child: Visibility(
-                  child: Image.asset("assets/icons/play.png"),
+                  child: Image.asset("assets/icons/recordbutton.png"),
                   visible: _recordingCheck,
                   maintainState: true,
                   maintainSize: true,
