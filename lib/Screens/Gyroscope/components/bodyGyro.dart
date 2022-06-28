@@ -141,6 +141,8 @@ class _SensorDataState extends State<SensorData> {
                             ],
                           );
                         });
+                    while(_recordingCheck == true) {
+                    await Future.delayed(Duration(seconds: 1));
                     final sensor = Sensor(
                       sensor: livesensor,
                       name: codeDialog,
@@ -150,7 +152,7 @@ class _SensorDataState extends State<SensorData> {
                       time: DateTime.now(),
                     );
                     await SakDatabase.instance.createSensor(sensor);
-                    await SakDatabase.instance.closeSensor();
+                    }
                     },
                   ),
                   InkWell(
