@@ -172,15 +172,35 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                     ),
                     onTap: () {
                       setState(() {
-                        if (_recordingCheck == false) return;
-                        _recordingCheck = !_recordingCheck;
-                        _playImage = AssetImage("assets/icons/play.png");
-                        _stopImage =
-                            AssetImage("assets/icons/inactivestop.png");
+                         _confirmStopDialogue();
                       });
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: size.width * (1 / 3),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: size.width * 0.2,
+                height: size.height * 0.1,
+                child: Visibility(
+                  child: Image.asset("assets/icons/recordbutton.png"),
+                  visible: _recordingCheck,
+                  maintainState: true,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                ),
+              ),
+              SizedBox(
+                width: size.width * (1 / 3),
               ),
             ],
           )
@@ -210,4 +230,76 @@ class _AccelerometerDataState extends State<AccelerometerData> {
       ),
     );
   }
+
+    Future<void> _recordingStopped() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Recording Stopped'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Recording Stopped'),
+                Text('Data stored as a CSV file'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+    Future<void> _confirmStopDialogue() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Session End'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Do you want to end the session?'),
+                Text('Data recording will be stopped'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _recordingCheck == false;
+              },
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    if (_recordingCheck == false) return;
+                    _recordingCheck = !_recordingCheck;
+                    _playImage = AssetImage("assets/icons/play.png");
+                    _stopImage = AssetImage("assets/icons/inactivestop.png");
+                  });
+                  _recordingStopped();
+                },
+                child: const Text('Yes'))
+          ],
+        );
+      },
+    );
+  }
+
+
+
 }
