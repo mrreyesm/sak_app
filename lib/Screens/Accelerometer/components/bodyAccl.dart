@@ -142,7 +142,9 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               ],
                             );
                           });
-                      final sensor = Sensor(
+                      while(_recordingCheck == true) {
+                      await Future.delayed(Duration(seconds: 1));
+                      var sensor = Sensor(
                         sensor: livesensor,
                         name: codeDialog,
                         xAxis: accelerometer[0],
@@ -151,7 +153,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                         time: DateTime.now(),
                       );
                       await SakDatabase.instance.createSensor(sensor);
-                      await SakDatabase.instance.closeSensor();
+                    }
                     },
                   ),
                   InkWell(
