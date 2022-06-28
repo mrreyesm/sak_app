@@ -150,6 +150,7 @@ class _SensorDataState extends State<SensorData> {
                       time: DateTime.now(),
                     );
                     await SakDatabase.instance.createSensor(sensor);
+                    await SakDatabase.instance.closeSensor();
                     },
                   ),
                   InkWell(

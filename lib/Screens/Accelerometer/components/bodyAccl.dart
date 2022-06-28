@@ -151,6 +151,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                         time: DateTime.now(),
                       );
                       await SakDatabase.instance.createSensor(sensor);
+                      await SakDatabase.instance.closeSensor();
                     },
                   ),
                   InkWell(
