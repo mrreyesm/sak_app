@@ -33,7 +33,7 @@ class Splash2 extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'DSAK',
         home: AnimatedSplashScreen(
-            duration: 10000,
+            duration: 5000,
             splash: Image.asset("assets/images/main_logo.png"),
             nextScreen: WelcomeScreen(),
             splashTransition: SplashTransition.fadeTransition,
