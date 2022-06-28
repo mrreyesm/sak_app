@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:time/time.dart';
+import 'package:sak_app/db/sak_database.dart';
+import 'package:sak_app/model/sak.dart';
 
 class SensorData extends StatefulWidget {
   const SensorData({Key? key}) : super(key: key);
@@ -30,6 +32,10 @@ class _SensorDataState extends State<SensorData> {
     final gyroscope =
         _gyroscopeValues?.map((double v) => v.toStringAsFixed(3)).toList();
 
+    final livesensor = "Gyroscope";
+    String valueText = "";
+    String codeDialog = "";
+    TextEditingController livenameField = TextEditingController();
     return Background(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +97,7 @@ class _SensorDataState extends State<SensorData> {
                         image: DecorationImage(image: _playImage),
                       ),
                     ),
-                    onTap: () {
+                    onTap: () async {
                       if (_recordingCheck == true) return;
                       setState(() {
                         _recordingCheck = !_recordingCheck;
@@ -99,6 +105,51 @@ class _SensorDataState extends State<SensorData> {
                             AssetImage("assets/icons/inactiveplay.png");
                         _stopImage = AssetImage("assets/icons/stop.png");
                       });
+                      await showDialog(
+                        context: context,                                            
+                        builder: (BuildContext context) {                          
+                          return AlertDialog(
+                            title: Text("Enter Recording Name"),
+                            content: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  valueText = value;
+                                });
+                              },
+                              controller: livenameField,
+                              decoration: InputDecoration(
+                                labelText: "Recoding Name",
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                  child: Text("Save"),
+                                  onPressed: () async {
+                                    setState(() {
+                                      codeDialog = valueText;
+                                      Navigator.pop(context);
+                                    });
+                                  }),
+                              TextButton(
+                                child: Text("Cancel"),
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                    final sensor = Sensor(
+                      sensor: livesensor,
+                      name: codeDialog,
+                      xAxis: gyroscope[0],
+                      yAxis: gyroscope[1],
+                      zAxis: gyroscope[2],
+                      time: DateTime.now(),
+                    );
+                    await SakDatabase.instance.createSensor(sensor);
                     },
                   ),
                   InkWell(
