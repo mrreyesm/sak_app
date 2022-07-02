@@ -22,24 +22,6 @@ class SensorScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text("Sensor Menu"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text("Gyroscope"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text("Accelerometer"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
               title: const Text("FAQ"),
               onTap: () {
                 Navigator.pop(context);

@@ -129,7 +129,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Enter Live Sensor Name"),
+                              title: Text("Enter Recording Name"),
                               content: TextField(
                                 onChanged: (value) {
                                   setState(() {
@@ -138,7 +138,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                                 },
                                 controller: livenameField,
                                 decoration: InputDecoration(
-                                  labelText: "Live Sensor Name",
+                                  labelText: "Recoding Name",
                                 ),
                               ),
                               actions: <Widget>[
@@ -161,7 +161,9 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               ],
                             );
                           });
-                      final sensor = Sensor(
+                      while(_recordingCheck == true) {
+                      await Future.delayed(Duration(seconds: 1));
+                      var sensor = Sensor(
                         sensor: livesensor,
                         name: codeDialog,
                         xAxis: accelerometer[0],
@@ -170,6 +172,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                         time: DateTime.now(),
                       );
                       await SakDatabase.instance.createSensor(sensor);
+                    }
                     },
                   ),
                   InkWell(
@@ -192,6 +195,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                     onTap: () {
                       setState(() {
                         _confirmStopDialogue();
+
                       });
                     },
                   ),
@@ -326,4 +330,76 @@ class _AccelerometerDataState extends State<AccelerometerData> {
       ),
     );
   }
+
+    Future<void> _recordingStopped() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Recording Stopped'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Recording Stopped'),
+                Text('Data stored as a CSV file'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+    Future<void> _confirmStopDialogue() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Session End'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Do you want to end the session?'),
+                Text('Data recording will be stopped'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _recordingCheck == false;
+              },
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    if (_recordingCheck == false) return;
+                    _recordingCheck = !_recordingCheck;
+                    _playImage = AssetImage("assets/icons/play.png");
+                    _stopImage = AssetImage("assets/icons/inactivestop.png");
+                  });
+                  _recordingStopped();
+                },
+                child: const Text('Yes'))
+          ],
+        );
+      },
+    );
+  }
+
+
+
 }
