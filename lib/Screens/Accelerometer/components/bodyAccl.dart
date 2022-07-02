@@ -18,10 +18,16 @@ class AccelerometerData extends StatefulWidget {
 
 class _AccelerometerDataState extends State<AccelerometerData> {
   List<double>? _accelerometerValues;
+  late List _acclDBArray;
   bool _recordingCheck = false;
   AssetImage _playImage = AssetImage("assets/icons/play.png");
   AssetImage _stopImage = AssetImage("assets/icons/inactivestop.png");
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+  DateTime _currentTime = DateTime.now();
+  DateTime _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
+  late List<String> _timeUTCList, _timeLocalList;
+  var _sendToDBList = <dynamic>[];
+  late var listLength;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +37,19 @@ class _AccelerometerDataState extends State<AccelerometerData> {
     final livesensor = "Accelerometer";
     String valueText = "";
     String codeDialog = "";
+    _timeLocalList = [DateTime.now().toString()];
+    _timeUTCList = [
+      DateTime.now().subtract(DateTime.now().timeZoneOffset).toString()
+    ];
+    _acclDBArray = [
+      _timeLocalList,
+      _timeUTCList,
+      accelerometer![0],
+      accelerometer[1],
+      accelerometer[2]
+    ];
+    listLength = _sendToDBList.length;
+
     TextEditingController livenameField = TextEditingController();
     return Background(
       child: Column(
@@ -49,7 +68,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${accelerometer![0]}\nY Axis: ${accelerometer[1]}\nZ Axis: ${accelerometer[2]}",
+                    "X Axis: ${accelerometer[0]}\nY Axis: ${accelerometer[1]}\nZ Axis: ${accelerometer[2]}\nCurrentTime: $_currentTime\nList: $listLength",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -172,15 +191,35 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                     ),
                     onTap: () {
                       setState(() {
-                        if (_recordingCheck == false) return;
-                        _recordingCheck = !_recordingCheck;
-                        _playImage = AssetImage("assets/icons/play.png");
-                        _stopImage =
-                            AssetImage("assets/icons/inactivestop.png");
+                        _confirmStopDialogue();
                       });
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: size.width * (1 / 3),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: size.width * 0.2,
+                height: size.height * 0.1,
+                child: Visibility(
+                  child: Image.asset("assets/icons/recordbutton.png"),
+                  visible: _recordingCheck,
+                  maintainState: true,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                ),
+              ),
+              SizedBox(
+                width: size.width * (1 / 3),
               ),
             ],
           )
@@ -197,6 +236,75 @@ class _AccelerometerDataState extends State<AccelerometerData> {
     }
   }
 
+  Future<void> _recordingStopped() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Recording Stopped'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Recording Stopped'),
+                Text('Data stored as a CSV file.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _confirmStopDialogue() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Session End'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Do you want to end the session?'),
+                Text('Data recording will be stopped'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _recordingCheck == false;
+              },
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    if (_recordingCheck == false) return;
+                    _recordingCheck = !_recordingCheck;
+                    _playImage = AssetImage("assets/icons/play.png");
+                    _stopImage = AssetImage("assets/icons/inactivestop.png");
+                  });
+                  _recordingStopped();
+                },
+                child: const Text('Yes'))
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -205,6 +313,14 @@ class _AccelerometerDataState extends State<AccelerometerData> {
         (AccelerometerEvent event) {
           setState(() {
             _accelerometerValues = <double>[event.x, event.y, event.z];
+            _currentTime = DateTime.now();
+            _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
+            if (_recordingCheck == false) return;
+            _timeLocalList = _timeLocalList;
+            _timeUTCList = _timeUTCList;
+            _acclDBArray = _acclDBArray;
+            _sendToDBList = _sendToDBList + _acclDBArray;
+            listLength = _sendToDBList.length;
           });
         },
       ),
