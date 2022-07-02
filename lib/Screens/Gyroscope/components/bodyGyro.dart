@@ -18,19 +18,34 @@ class SensorData extends StatefulWidget {
 
 class _SensorDataState extends State<SensorData> {
   List<double>? _gyroscopeValues;
+  late List _gyroDBArray;
   bool _recordingCheck = false;
-  bool _confirmStop = false;
   DateTime _currentTime = DateTime.now();
   DateTime _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
   AssetImage _playImage = AssetImage("assets/icons/play.png");
   AssetImage _stopImage = AssetImage("assets/icons/inactivestop.png");
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+  late List<String> _timeUTCList, _timeLocalList;
+  var _sendToDBList = <dynamic>[];
+  late var listLength;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final gyroscope =
         _gyroscopeValues?.map((double v) => v.toStringAsFixed(3)).toList();
+    _timeLocalList = [DateTime.now().toString()];
+    _timeUTCList = [
+      DateTime.now().subtract(DateTime.now().timeZoneOffset).toString()
+    ];
+    _gyroDBArray = [
+      _timeLocalList,
+      _timeUTCList,
+      gyroscope![0],
+      gyroscope[1],
+      gyroscope[2]
+    ];
+    listLength = _sendToDBList.length;
 
     final livesensor = "Gyroscope";
     String valueText = "";
@@ -45,8 +60,9 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope![0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z",
+                    "X Axis: ${gyroscope[0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z\nString: ${_sendToDBList}\nLength: $listLength",
                     style: TextStyle(
+                      backgroundColor: Colors.cyan.shade100,
                       fontSize: 20,
                       color: Colors.black,
                     ),
@@ -228,6 +244,12 @@ class _SensorDataState extends State<SensorData> {
             _currentTime = DateTime.now();
             _utcTime = DateTime.now().subtract(DateTime.now().timeZoneOffset);
             _gyroscopeValues = <double>[event.x, event.y, event.z];
+            if (_recordingCheck == false) return;
+            _timeLocalList = _timeLocalList;
+            _timeUTCList = _timeUTCList;
+            _gyroDBArray = _gyroDBArray;
+            _sendToDBList = _sendToDBList + _gyroDBArray;
+            listLength = _sendToDBList.length;
           });
         },
       ),
@@ -245,7 +267,7 @@ class _SensorDataState extends State<SensorData> {
             child: ListBody(
               children: const <Widget>[
                 Text('Recording Stopped'),
-                Text('Data stored as a CSV file'),
+                Text('Data stored as a CSV file.'),
               ],
             ),
           ),
