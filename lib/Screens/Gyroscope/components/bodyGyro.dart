@@ -60,7 +60,7 @@ class _SensorDataState extends State<SensorData> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "X Axis: ${gyroscope[0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z\nString: ${_sendToDBList}\nLength: $listLength",
+                    "X Axis: ${gyroscope[0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z\nLength: $listLength",
                     style: TextStyle(
                       backgroundColor: Colors.cyan.shade100,
                       fontSize: 20,
