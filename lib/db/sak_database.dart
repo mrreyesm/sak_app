@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:sak_app/model/sak.dart';
@@ -141,6 +143,16 @@ ${SensorFields.time} $textType
       throw Exception('ID $id not found');
     }
   }
+
+  Future<void> createSensors(List<dynamic> list, String codeDialog, String livesensor) async {
+    final db = await instance.database;
+    for (var i = 0; i < list.length; i++) {
+      final columns = 
+      "${SensorFields.sensor},${SensorFields.name}, ${SensorFields.xAxis}, ${SensorFields.yAxis}, ${SensorFields.zAxis}, ${SensorFields.time}";
+      String values = "'$livesensor','$codeDialog', '${list[i][0]}', '${list[i][1]}', '${list[i][2]}', '${list[i][3]}'";
+      await db.rawInsert("""INSERT INTO $tableSensors ($columns) VALUES ($values)""");
+      }
+    }
 
   Future<List<Sensor>> readAllSensors() async {
     final db = await instance.database;
