@@ -8,6 +8,9 @@ import 'dart:core';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:sak_app/db/sak_database.dart';
 import 'package:sak_app/model/sak.dart';
+final livesensor = "Accelerometer";
+String valueText = "";
+String codeDialog = "";
 
 class AccelerometerData extends StatefulWidget {
   const AccelerometerData({Key? key}) : super(key: key);
@@ -33,20 +36,17 @@ class _AccelerometerDataState extends State<AccelerometerData> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final accelerometer =
-        _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
-    final livesensor = "Accelerometer";
-    String valueText = "";
-    String codeDialog = "";
+    _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
     _timeLocalList = [DateTime.now().toString()];
     _timeUTCList = [
       DateTime.now().subtract(DateTime.now().timeZoneOffset).toString()
     ];
     _acclDBArray = [
-      _timeLocalList,
-      _timeUTCList,
       accelerometer![0],
       accelerometer[1],
-      accelerometer[2]
+      accelerometer[2],
+      //_timeLocalList,
+      _timeUTCList
     ];
     listLength = _sendToDBList.length;
 
@@ -118,13 +118,6 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                           image: DecorationImage(image: _playImage)),
                     ),
                     onTap: () async {
-                      if (_recordingCheck == true) return;
-                      setState(() {
-                        _recordingCheck = !_recordingCheck;
-                        _playImage =
-                            AssetImage("assets/icons/inactiveplay.png");
-                        _stopImage = AssetImage("assets/icons/stop.png");
-                      });
                       await showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -144,9 +137,13 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               actions: <Widget>[
                                 TextButton(
                                     child: Text("Save"),
-                                    onPressed: () async {
+                                    onPressed: () async {                                      
+                                      if (_recordingCheck == true) return;
                                       setState(() {
-                                        codeDialog = valueText;
+                                        codeDialog = valueText;                                        
+                                        _recordingCheck = !_recordingCheck;
+                                        _playImage = AssetImage("assets/icons/inactiveplay.png");
+                                        _stopImage = AssetImage("assets/icons/stop.png");
                                         Navigator.pop(context);
                                       });
                                     }),
@@ -162,7 +159,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                             );
                           });
                       while (_recordingCheck == true) {
-                        await Future.delayed(Duration(seconds: 1));
+                        await Future.delayed(Duration(milliseconds: 500));
                         var sensor = Sensor(
                           sensor: livesensor,
                           name: codeDialog,
@@ -273,11 +270,11 @@ class _AccelerometerDataState extends State<AccelerometerData> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Session End'),
+          title: const Text('Confirm Recording Stop'),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Do you want to end the session?'),
+                Text('Do you want to end the recording?'),
                 Text('Data recording will be stopped'),
               ],
             ),
@@ -291,7 +288,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
               },
             ),
             TextButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.of(context).pop();
                   setState(() {
                     if (_recordingCheck == false) return;
@@ -300,6 +297,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                     _stopImage = AssetImage("assets/icons/inactivestop.png");
                   });
                   _recordingStopped();
+                  //await SakDatabase.instance.createSensors(_sendToDBList, codeDialog, livesensor);
                 },
                 child: const Text('Yes'))
           ],

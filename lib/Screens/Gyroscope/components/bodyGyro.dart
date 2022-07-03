@@ -114,13 +114,6 @@ class _SensorDataState extends State<SensorData> {
                       ),
                     ),
                     onTap: () async {
-                      if (_recordingCheck == true) return;
-                      setState(() {
-                        _recordingCheck = !_recordingCheck;
-                        _playImage =
-                            AssetImage("assets/icons/inactiveplay.png");
-                        _stopImage = AssetImage("assets/icons/stop.png");
-                      });
                       await showDialog(
                         context: context,                                            
                         builder: (BuildContext context) {                          
@@ -141,8 +134,12 @@ class _SensorDataState extends State<SensorData> {
                               TextButton(
                                   child: Text("Save"),
                                   onPressed: () async {
+                                    if (_recordingCheck == true) return;
                                     setState(() {
                                       codeDialog = valueText;
+                                      _recordingCheck = !_recordingCheck;
+                                      _playImage = AssetImage("assets/icons/inactiveplay.png");
+                                      _stopImage = AssetImage("assets/icons/stop.png");
                                       Navigator.pop(context);
                                     });
                                   }),
@@ -158,7 +155,7 @@ class _SensorDataState extends State<SensorData> {
                           );
                         });
                     while(_recordingCheck == true) {
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(Duration(milliseconds: 500));
                     final sensor = Sensor(
                       sensor: livesensor,
                       name: codeDialog,
@@ -290,11 +287,11 @@ class _SensorDataState extends State<SensorData> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Session End'),
+          title: const Text('Confirm Recording Stop'),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Do you want to end the session?'),
+                Text('Do you want to end the recording?'),
                 Text('Data recording will be stopped'),
               ],
             ),
