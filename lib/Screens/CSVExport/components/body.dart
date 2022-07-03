@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class SensorsPage extends StatefulWidget {
 class _SensorsPageState extends State<SensorsPage> {
   late List<Sensor> sensors = sensors;
   bool isLoading = false;
+  AssetImage _downloadIcon = AssetImage("assets/icons/dlicon.png");
 
   @override
   void initState() {
@@ -40,11 +42,16 @@ class _SensorsPageState extends State<SensorsPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return ListView(children: [_createDataTable()]);
   }
 
   DataTable _createDataTable() {
-    return DataTable(columns: _createColumns(), rows: _createRows());
+    return DataTable(
+        dividerThickness: 2,
+        columnSpacing: 0,
+        columns: _createColumns(),
+        rows: _createRows());
   }
 
   List<DataColumn> _createColumns() {
@@ -52,6 +59,7 @@ class _SensorsPageState extends State<SensorsPage> {
       DataColumn(label: Text('Name')),
       DataColumn(label: Text('Sensor')),
       DataColumn(label: Text('Time')),
+      DataColumn(label: Text('Download')),
     ];
   }
 
@@ -60,9 +68,22 @@ class _SensorsPageState extends State<SensorsPage> {
     List<DataRow> rows = [];
     for (int i = 0; i < sensors.length; i++) {
       final row = DataRow(cells: [
-        DataCell(Text(sensors[i].name)),
+        DataCell(
+          Container(width: 75, child: Text(sensors[i].name)),
+        ),
         DataCell(Text(sensors[i].sensor)),
         DataCell(Text(dateFormat.format(sensors[i].time))),
+        DataCell(Container(
+          width: 40,
+          child: InkWell(
+            child: Ink(
+              decoration: BoxDecoration(
+                image: DecorationImage(image: _downloadIcon),
+              ),
+            ),
+            onTap: () {},
+          ),
+        ))
       ]);
       rows.add(row);
     }
