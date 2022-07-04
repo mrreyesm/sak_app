@@ -1,4 +1,3 @@
-
 final String tableUsers = 'users';
 final String tableSensors = 'sensors';
 
