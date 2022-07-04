@@ -16,7 +16,7 @@ class SensorsPage extends StatefulWidget {
 }
 
 class _SensorsPageState extends State<SensorsPage> {
-  late List<Sensor> sensors = sensors;
+  late List<Recording> sensors = sensors;
   late List<Sensor> sensorcsv = sensorcsv;
   bool isLoading = false;
   AssetImage _downloadIcon = AssetImage("assets/icons/dlicon.png");
@@ -26,6 +26,7 @@ class _SensorsPageState extends State<SensorsPage> {
     super.initState();
 
     refreshSensors();
+
   }
 
   @override
@@ -38,7 +39,8 @@ class _SensorsPageState extends State<SensorsPage> {
   Future refreshSensors() async {
     setState(() => isLoading = true);
 
-    this.sensors = await SakDatabase.instance.readAllSensors();
+    //this.sensors = await SakDatabase.instance.readAllSensors();
+    this.sensors = await SakDatabase.instance.readUniqueSensors();
 
     setState(() => isLoading = false);
   }
@@ -122,7 +124,7 @@ class _SensorsPageState extends State<SensorsPage> {
     return [
       DataColumn(label: Text('Name')),
       DataColumn(label: Text('Sensor')),
-      DataColumn(label: Text('Time')),
+      //DataColumn(label: Text('Time')),
       DataColumn(label: Text('Download')),
     ];
   }
@@ -136,7 +138,7 @@ class _SensorsPageState extends State<SensorsPage> {
           Container(width: 75, child: Text(sensors[i].name)),
         ),
         DataCell(Text(sensors[i].sensor)),
-        DataCell(Text(dateFormat.format(sensors[i].time))),
+        //DataCell(Text(sensors[i].time)),
         DataCell(Container(
           width: 40,
           child: InkWell(

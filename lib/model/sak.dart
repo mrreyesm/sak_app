@@ -167,3 +167,56 @@ class Sensor {
 };
 
 }
+
+
+///////////////////////////////
+///////////////////////////////
+///
+class RecordingFields {
+  static final List<String> values = [
+    sensor,
+    name,
+    time
+  ];
+  static final String sensor = 'sensor';
+  static final String name = 'name';
+  static final String time = 'time';
+}
+class Recording {
+  final String sensor;
+  final String name;
+  final String time;
+  
+  const Recording({
+    required this.sensor,
+    required this.name,
+    required this.time,
+  }); 
+  
+  Recording copy({
+    String? sensor,
+    String? name,
+    String? time,
+  }) {
+    return Recording(
+      sensor: sensor ?? this.sensor,
+      name: name ?? this.name,
+      time: time ?? this.time,
+    );
+  }
+
+  static Recording fromJson(Map<String, dynamic> json) {
+    return Recording(
+      sensor: json[RecordingFields.sensor] as String,
+      name: json[RecordingFields.name] as String,
+      time: json[RecordingFields.time] as String,
+    );
+  }
+
+  Map<String, Object?> toJson() => {
+  RecordingFields.sensor: sensor,
+  RecordingFields.name: name,
+  RecordingFields.time: time,  
+};
+
+}

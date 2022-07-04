@@ -161,6 +161,16 @@ ${SensorFields.time} $textType
     return result.map((json) => Sensor.fromJson(json)).toList();
   }
 
+    Future<List<Recording>> readUniqueSensors() async {
+    final db = await instance.database;
+    //final orderBy = '${SensorFields.id} DESC';   
+    //final result = await db.query(tableSensors, orderBy: orderBy);
+    final result = await db.rawQuery('SELECT DISTINCT ${RecordingFields.sensor}, ${RecordingFields.name}, SUBSTR(${RecordingFields.time},1,10) FROM $tableSensors');
+    print(result);
+    return result.map((json) => Recording.fromJson(json)).toList();
+
+  }
+
   Future<List<Sensor>> downloadSensor(String name) async {
     final db = await instance.database;
     final orderBy = '${SensorFields.id} DESC'; 
