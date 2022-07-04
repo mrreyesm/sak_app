@@ -66,7 +66,6 @@ class _SensorsPageState extends State<SensorsPage> {
                 this.sensorcsv = await SakDatabase.instance.downloadSensor(name);
                 //Map<Permission, PermissionStatus> statuses = await [Permission.storage,].request();
                 List<dynamic> dynamicValues = List<dynamic>.from(this.sensorcsv);
-                print(dynamicValues);
                 List<List<dynamic>> rows = [];
 
                 List<dynamic> row = [];
@@ -89,12 +88,11 @@ class _SensorsPageState extends State<SensorsPage> {
                   row.add(dynamicValues[i].time);
                   rows.add(row);
                 }
-                print(rows);
                 String csv = const ListToCsvConverter().convert(rows);
                 String dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
                 print("dir $dir");
                 String file = "$dir";
-                File f = File(file + "/filename2.csv");
+                File f = File(file + "/" + name + "_" + dynamicValues[1].sensor + ".csv");
                 f.writeAsString(csv);
                 setState(() => isLoading = false);
                 Navigator.of(context).pop();
