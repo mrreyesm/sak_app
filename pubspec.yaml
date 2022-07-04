@@ -46,6 +46,7 @@ dependencies:
   flutter_echarts: ^2.3.0
   time: ^2.1.1
   csv: ^5.0.1
+  external_path: ^1.0.1
 
 dev_dependencies:
   flutter_test:
