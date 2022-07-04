@@ -247,7 +247,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
             child: ListBody(
               children: const <Widget>[
                 Text('Recording Stopped'),
-                Text('Data stored as a CSV file.'),
+                //Text('Data stored as a CSV file.'),
               ],
             ),
           ),

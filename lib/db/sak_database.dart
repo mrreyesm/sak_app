@@ -161,6 +161,16 @@ ${SensorFields.time} $textType
     return result.map((json) => Sensor.fromJson(json)).toList();
   }
 
+  Future<List<Sensor>> downloadSensor(String name) async {
+    final db = await instance.database;
+    final orderBy = '${SensorFields.id} DESC'; 
+    final where = '${SensorFields.name} = ?';
+    final whereArgs = [name];
+    final result = await db.query(tableSensors, where: where, whereArgs: whereArgs, orderBy: orderBy);
+    return result.map((json) => Sensor.fromJson(json)).toList();
+  }
+
+
   Future<void> updateSensor(Sensor sensor) async {
     final db = await instance.database;
 
