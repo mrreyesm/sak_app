@@ -158,14 +158,15 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               ],
                             );
                           });
+                          int i = 0;
                       while (_recordingCheck == true) {
                         await Future.delayed(Duration(milliseconds: 500));
                         var sensor = Sensor(
                           sensor: livesensor,
                           name: codeDialog,
-                          xAxis: accelerometer[0],
-                          yAxis: accelerometer[1],
-                          zAxis: accelerometer[2],
+                          xAxis: _acclDBArray[0],
+                          yAxis: _acclDBArray[1],
+                          zAxis: _acclDBArray[2],
                           time: DateTime.now(),
                         );
                         await SakDatabase.instance.createSensor(sensor);
