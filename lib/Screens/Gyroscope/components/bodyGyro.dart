@@ -159,9 +159,9 @@ class _SensorDataState extends State<SensorData> {
                     final sensor = Sensor(
                       sensor: livesensor,
                       name: codeDialog,
-                      xAxis: gyroscope[0],
-                      yAxis: gyroscope[1],
-                      zAxis: gyroscope[2],
+                      xAxis: _gyroDBArray[0],
+                      yAxis: _gyroDBArray[1],
+                      zAxis: _gyroDBArray[2],
                       time: DateTime.now(),
                     );
                     await SakDatabase.instance.createSensor(sensor);
@@ -321,4 +321,6 @@ class _SensorDataState extends State<SensorData> {
       },
     );
   }
+
+
 }
