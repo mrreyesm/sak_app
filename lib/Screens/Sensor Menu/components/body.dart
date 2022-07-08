@@ -5,6 +5,7 @@ import 'package:sak_app/Screens/Login/login_screen.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/components/background.dart';
 import 'package:sak_app/Screens/BarcodeScanner/barcodeScannerPage.dart';
 import 'package:sak_app/Screens/CSVExport/csvExportPage.dart';
+import 'package:sak_app/Screens/Under%20Development/underDevelopmentPage.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BarcodeScannerScreen()));
+                        builder: (context) => const UnderDevelopment()));
               },
               child: new GridTile(
                   child: new Image.asset(
@@ -92,12 +93,14 @@ class Body extends StatelessWidget {
             ], borderRadius: BorderRadius.circular(10), color: Colors.white),
             padding: const EdgeInsets.all(8),
           ),
-          Container(//
+          Container(
+            //
             child: InkWell(
               onTap: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CSVExportScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CSVExportScreen()));
               },
               child: new GridTile(
                   child: new Image.asset(
@@ -117,7 +120,12 @@ class Body extends StatelessWidget {
           ),
           Container(
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UnderDevelopment()));
+              },
               child: new GridTile(
                   child: new Image.asset(
                 "assets/icons/mqtt.png",
@@ -136,7 +144,12 @@ class Body extends StatelessWidget {
           ),
           Container(
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UnderDevelopment()));
+              },
               child: new GridTile(
                   child: new Image.asset(
                 "assets/icons/sets.png",

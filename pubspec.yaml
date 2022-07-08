@@ -47,6 +47,12 @@ dependencies:
   time: ^2.1.1
   csv: ^5.0.1
   external_path: ^1.0.1
+  flutter_launcher_icons: ^0.8.1
+
+flutter_icons:
+    android: true
+    ios: true
+    image_path_android: "assets/icons/logo.png"
 
 dev_dependencies:
   flutter_test:

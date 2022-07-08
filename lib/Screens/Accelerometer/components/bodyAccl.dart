@@ -8,6 +8,7 @@ import 'dart:core';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:sak_app/db/sak_database.dart';
 import 'package:sak_app/model/sak.dart';
+
 final livesensor = "Accelerometer";
 String valueText = "";
 String codeDialog = "";
@@ -36,7 +37,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final accelerometer =
-    _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
+        _accelerometerValues?.map((double v) => v.toStringAsFixed(3)).toList();
     _timeLocalList = [DateTime.now().toString()];
     _timeUTCList = [
       DateTime.now().subtract(DateTime.now().timeZoneOffset).toString()
@@ -137,13 +138,15 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               actions: <Widget>[
                                 TextButton(
                                     child: Text("Save"),
-                                    onPressed: () async {                                      
+                                    onPressed: () async {
                                       if (_recordingCheck == true) return;
                                       setState(() {
-                                        codeDialog = valueText;                                        
+                                        codeDialog = valueText;
                                         _recordingCheck = !_recordingCheck;
-                                        _playImage = AssetImage("assets/icons/inactiveplay.png");
-                                        _stopImage = AssetImage("assets/icons/stop.png");
+                                        _playImage = AssetImage(
+                                            "assets/icons/inactiveplay.png");
+                                        _stopImage =
+                                            AssetImage("assets/icons/stop.png");
                                         Navigator.pop(context);
                                       });
                                     }),
@@ -158,7 +161,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                               ],
                             );
                           });
-                          int i = 0;
+                      int i = 0;
                       while (_recordingCheck == true) {
                         await Future.delayed(Duration(milliseconds: 500));
                         var sensor = Sensor(
@@ -167,7 +170,7 @@ class _AccelerometerDataState extends State<AccelerometerData> {
                           xAxis: _acclDBArray[0],
                           yAxis: _acclDBArray[1],
                           zAxis: _acclDBArray[2],
-                          time: DateTime.now(),
+                          time: _utcTime,
                         );
                         await SakDatabase.instance.createSensor(sensor);
                       }
