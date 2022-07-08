@@ -62,7 +62,6 @@ class _SensorDataState extends State<SensorData> {
                   child: Text(
                     "X Axis: ${gyroscope[0]}\nY Axis: ${gyroscope[1]}\nZ Axis: ${gyroscope[2]}\nCurrentTime: $_currentTime\nCurrentTimeUTC: ${_utcTime}Z\nLength: $listLength",
                     style: TextStyle(
-                      backgroundColor: Colors.cyan.shade100,
                       fontSize: 20,
                       color: Colors.black,
                     ),
@@ -115,57 +114,59 @@ class _SensorDataState extends State<SensorData> {
                     ),
                     onTap: () async {
                       await showDialog(
-                        context: context,                                            
-                        builder: (BuildContext context) {                          
-                          return AlertDialog(
-                            title: Text("Enter Recording Name"),
-                            content: TextField(
-                              onChanged: (value) {
-                                setState(() {
-                                  valueText = value;
-                                });
-                              },
-                              controller: livenameField,
-                              decoration: InputDecoration(
-                                labelText: "Recoding Name",
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                  child: Text("Save"),
-                                  onPressed: () async {
-                                    if (_recordingCheck == true) return;
-                                    setState(() {
-                                      codeDialog = valueText;
-                                      _recordingCheck = !_recordingCheck;
-                                      _playImage = AssetImage("assets/icons/inactiveplay.png");
-                                      _stopImage = AssetImage("assets/icons/stop.png");
-                                      Navigator.pop(context);
-                                    });
-                                  }),
-                              TextButton(
-                                child: Text("Cancel"),
-                                onPressed: () {
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Enter Recording Name"),
+                              content: TextField(
+                                onChanged: (value) {
                                   setState(() {
-                                    Navigator.pop(context);
+                                    valueText = value;
                                   });
                                 },
+                                controller: livenameField,
+                                decoration: InputDecoration(
+                                  labelText: "Recoding Name",
+                                ),
                               ),
-                            ],
-                          );
-                        });
-                    while(_recordingCheck == true) {
-                    await Future.delayed(Duration(milliseconds: 500));
-                    final sensor = Sensor(
-                      sensor: livesensor,
-                      name: codeDialog,
-                      xAxis: _gyroDBArray[0],
-                      yAxis: _gyroDBArray[1],
-                      zAxis: _gyroDBArray[2],
-                      time: DateTime.now(),
-                    );
-                    await SakDatabase.instance.createSensor(sensor);
-                    }
+                              actions: <Widget>[
+                                TextButton(
+                                    child: Text("Save"),
+                                    onPressed: () async {
+                                      if (_recordingCheck == true) return;
+                                      setState(() {
+                                        codeDialog = valueText;
+                                        _recordingCheck = !_recordingCheck;
+                                        _playImage = AssetImage(
+                                            "assets/icons/inactiveplay.png");
+                                        _stopImage =
+                                            AssetImage("assets/icons/stop.png");
+                                        Navigator.pop(context);
+                                      });
+                                    }),
+                                TextButton(
+                                  child: Text("Cancel"),
+                                  onPressed: () {
+                                    setState(() {
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                      while (_recordingCheck == true) {
+                        await Future.delayed(Duration(milliseconds: 500));
+                        final sensor = Sensor(
+                          sensor: livesensor,
+                          name: codeDialog,
+                          xAxis: _gyroDBArray[0],
+                          yAxis: _gyroDBArray[1],
+                          zAxis: _gyroDBArray[2],
+                          time: _utcTime,
+                        );
+                        await SakDatabase.instance.createSensor(sensor);
+                      }
                     },
                   ),
                   InkWell(
@@ -321,6 +322,4 @@ class _SensorDataState extends State<SensorData> {
       },
     );
   }
-
-
 }
