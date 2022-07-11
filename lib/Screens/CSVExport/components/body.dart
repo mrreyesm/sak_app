@@ -7,8 +7,8 @@ import 'package:sak_app/model/sak.dart';
 import 'package:intl/intl.dart';
 import 'package:csv/csv.dart';
 import 'package:external_path/external_path.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
-
 
 class SensorsPage extends StatefulWidget {
   @override
@@ -20,13 +20,13 @@ class _SensorsPageState extends State<SensorsPage> {
   late List<Sensor> sensorcsv = sensorcsv;
   bool isLoading = false;
   AssetImage _downloadIcon = AssetImage("assets/icons/dlicon.png");
+  
 
   @override
   void initState() {
     super.initState();
 
     refreshSensors();
-
   }
 
   @override
@@ -46,7 +46,7 @@ class _SensorsPageState extends State<SensorsPage> {
   }
 
   Future _downloadSensor(String name) async {
-        return showDialog<void>(
+    return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -65,9 +65,14 @@ class _SensorsPageState extends State<SensorsPage> {
               child: const Text('Okay'),
               onPressed: () async {
                 setState(() => isLoading = true);
-                this.sensorcsv = await SakDatabase.instance.downloadSensor(name);
+                this.sensorcsv =
+                    await SakDatabase.instance.downloadSensor(name);
                 //Map<Permission, PermissionStatus> statuses = await [Permission.storage,].request();
-                List<dynamic> dynamicValues = List<dynamic>.from(this.sensorcsv);
+                Map<Permission, PermissionStatus> statuses = await [
+                  Permission.storage,
+                ].request();
+                List<dynamic> dynamicValues =
+                    List<dynamic>.from(this.sensorcsv);
                 List<List<dynamic>> rows = [];
 
                 List<dynamic> row = [];
@@ -91,10 +96,13 @@ class _SensorsPageState extends State<SensorsPage> {
                   rows.add(row);
                 }
                 String csv = const ListToCsvConverter().convert(rows);
-                String dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+                String dir =
+                    await ExternalPath.getExternalStoragePublicDirectory(
+                        ExternalPath.DIRECTORY_DOWNLOADS);
                 print("dir $dir");
                 String file = "$dir";
-                File f = File(file + "/" + name + "_" + dynamicValues[1].sensor + ".csv");
+                File f = File(
+                    file + "/" + name + "_" + dynamicValues[1].sensor + ".csv");
                 f.writeAsString(csv);
                 setState(() => isLoading = false);
                 Navigator.of(context).pop();
