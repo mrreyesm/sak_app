@@ -40,7 +40,7 @@ ${UserFields.employeeId} $textType,
 ${UserFields.phoneNumber} $textType,
 ${UserFields.password} $textType
 )
-'''); 
+''');
 
     await db.execute('''
 CREATE TABLE $tableSensors(
@@ -52,7 +52,7 @@ ${SensorFields.yAxis} $textType,
 ${SensorFields.zAxis} $textType,
 ${SensorFields.time} $textType
 )
-'''); 
+''');
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ ${SensorFields.time} $textType
 
   Future<List<User>> readAllUsers() async {
     final db = await instance.database;
-    final orderBy = '${UserFields.id} DESC';   
+    final orderBy = '${UserFields.id} DESC';
     final result = await db.query(tableUsers, orderBy: orderBy);
 
     return result.map((json) => User.fromJson(json)).toList();
@@ -112,15 +112,15 @@ ${SensorFields.time} $textType
 
   Future<void> close() async {
     final db = await instance.database;
+    _database = null;
     db.close();
   }
-
 
   ////////////////////////////////////////////////////////////////////////////////
   ///Sensor
   ///////////////////////////////////////////////////////////////////////////////
-  
-    Future<Sensor> createSensor(Sensor sensor) async {
+
+  Future<Sensor> createSensor(Sensor sensor) async {
     final db = await instance.database;
     final id = await db.insert(tableSensors, sensor.toJson());
     return sensor.copy(id: id);
@@ -143,43 +143,46 @@ ${SensorFields.time} $textType
     }
   }
 
-  Future<void> createSensors(List<dynamic> list, String codeDialog, String livesensor) async {
+  Future<void> createSensors(
+      List<dynamic> list, String codeDialog, String livesensor) async {
     final db = await instance.database;
     for (var i = 0; i < list.length; i++) {
-      final columns = 
-      "${SensorFields.sensor},${SensorFields.name}, ${SensorFields.xAxis}, ${SensorFields.yAxis}, ${SensorFields.zAxis}, ${SensorFields.time}";
-      String values = "'$livesensor','$codeDialog', '${list[i][0]}', '${list[i][1]}', '${list[i][2]}', '${list[i][3]}'";
-      await db.rawInsert("""INSERT INTO $tableSensors ($columns) VALUES ($values)""");
-      }
+      final columns =
+          "${SensorFields.sensor},${SensorFields.name}, ${SensorFields.xAxis}, ${SensorFields.yAxis}, ${SensorFields.zAxis}, ${SensorFields.time}";
+      String values =
+          "'$livesensor','$codeDialog', '${list[i][0]}', '${list[i][1]}', '${list[i][2]}', '${list[i][3]}'";
+      await db.rawInsert(
+          """INSERT INTO $tableSensors ($columns) VALUES ($values)""");
     }
+  }
 
   Future<List<Sensor>> readAllSensors() async {
     final db = await instance.database;
-    final orderBy = '${SensorFields.id} DESC';   
+    final orderBy = '${SensorFields.id} DESC';
     final result = await db.query(tableSensors, orderBy: orderBy);
 
     return result.map((json) => Sensor.fromJson(json)).toList();
   }
 
-    Future<List<Recording>> readUniqueSensors() async {
+  Future<List<Recording>> readUniqueSensors() async {
     final db = await instance.database;
-    //final orderBy = '${SensorFields.id} DESC';   
+    //final orderBy = '${SensorFields.id} DESC';
     //final result = await db.query(tableSensors, orderBy: orderBy);
-    final result = await db.rawQuery('SELECT DISTINCT ${RecordingFields.sensor}, ${RecordingFields.name}, SUBSTR(${RecordingFields.time},1,10) FROM $tableSensors');
+    final result = await db.rawQuery(
+        'SELECT DISTINCT ${RecordingFields.sensor}, ${RecordingFields.name}, SUBSTR(${RecordingFields.time},1,10) FROM $tableSensors');
     print(result);
     return result.map((json) => Recording.fromJson(json)).toList();
-
   }
 
   Future<List<Sensor>> downloadSensor(String name) async {
     final db = await instance.database;
-    final orderBy = '${SensorFields.id} DESC'; 
+    final orderBy = '${SensorFields.id} DESC';
     final where = '${SensorFields.name} = ?';
     final whereArgs = [name];
-    final result = await db.query(tableSensors, where: where, whereArgs: whereArgs, orderBy: orderBy);
+    final result = await db.query(tableSensors,
+        where: where, whereArgs: whereArgs, orderBy: orderBy);
     return result.map((json) => Sensor.fromJson(json)).toList();
   }
-
 
   Future<void> updateSensor(Sensor sensor) async {
     final db = await instance.database;
@@ -204,7 +207,7 @@ ${SensorFields.time} $textType
 
   Future<void> closeSensor() async {
     final db = await instance.database;
+    _database = null;
     db.close();
   }
-
 }

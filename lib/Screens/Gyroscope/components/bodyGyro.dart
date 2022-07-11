@@ -9,6 +9,10 @@ import 'package:time/time.dart';
 import 'package:sak_app/db/sak_database.dart';
 import 'package:sak_app/model/sak.dart';
 
+final livesensor = "Gyroscope";
+String valueText = "";
+String codeDialog = "";
+
 class SensorData extends StatefulWidget {
   const SensorData({Key? key}) : super(key: key);
 
@@ -39,17 +43,13 @@ class _SensorDataState extends State<SensorData> {
       DateTime.now().subtract(DateTime.now().timeZoneOffset).toString()
     ];
     _gyroDBArray = [
-      _timeLocalList,
-      _timeUTCList,
       gyroscope![0],
       gyroscope[1],
-      gyroscope[2]
+      gyroscope[2],
+      _timeUTCList
     ];
     listLength = _sendToDBList.length;
 
-    final livesensor = "Gyroscope";
-    String valueText = "";
-    String codeDialog = "";
     TextEditingController livenameField = TextEditingController();
     return Background(
       child: Column(
@@ -126,7 +126,7 @@ class _SensorDataState extends State<SensorData> {
                                 },
                                 controller: livenameField,
                                 decoration: InputDecoration(
-                                  labelText: "Recoding Name",
+                                  labelText: "Recording Name",
                                 ),
                               ),
                               actions: <Widget>[
@@ -187,8 +187,10 @@ class _SensorDataState extends State<SensorData> {
                           image: DecorationImage(image: _stopImage)),
                     ),
                     onTap: () {
+                      setState(() {
                       _confirmStopDialogue();
-                    },
+                      });
+                    }
                   ),
                 ],
               ),
@@ -265,7 +267,7 @@ class _SensorDataState extends State<SensorData> {
             child: ListBody(
               children: const <Widget>[
                 Text('Recording Stopped'),
-                Text('Data stored as a CSV file.'),
+                Text('Recording Stopped.'),
               ],
             ),
           ),

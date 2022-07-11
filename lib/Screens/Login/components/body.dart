@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:sak_app/Screens/Login/components/background.dart';
 import 'package:sak_app/Screens/Sensor%20Menu/sensorMenu.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -66,7 +67,10 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  Map<Permission, PermissionStatus> statuses = await [
+                    Permission.storage,
+                  ].request();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
